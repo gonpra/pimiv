@@ -20,6 +20,8 @@ add_executable(PIM src/main.c
         src/structs.c
         src/util.h
         src/util.c
+        src/db.c
+        src/db.h
 )
 
 target_link_libraries(PIM ${GTK4_LIBRARIES} -lcrypt)
