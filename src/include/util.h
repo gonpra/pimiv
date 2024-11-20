@@ -8,3 +8,5 @@ gboolean is_valid_cnpj(const gchar* cnpj);
 gboolean is_valid_phone(const gchar* phone);
 gboolean is_valid_cep(const gchar* cep);
 gboolean is_valid_email(const gchar* email);
+void clear_box(GtkWidget* box);
+void set_box_content(GtkWidget* box, GtkWidget* content);

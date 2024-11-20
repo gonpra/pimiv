@@ -2,15 +2,15 @@
 // Created by linpra on 11/19/24.
 //
 
-#include "db.h"
-#include "util.h"
+#include "include/db.h"
+#include "include/util.h"
 
 gboolean db_user_auth(const gchar* username, const gchar* password) {
     gboolean user_authenticated = FALSE;
 
     FILE* file = fopen("users.txt", "r");
     if (file == NULL) {
-        run_dialog(NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, "Erro ao abrir o banco de dados de usuários.");
+        run_dialog_error(NULL, "Erro ao abrir o banco de dados de usuários.");
         return user_authenticated;
     }
 
@@ -26,7 +26,7 @@ gboolean db_user_auth(const gchar* username, const gchar* password) {
 
         char* crypted_password = crypt(password, "PIM");
         if (crypted_password == NULL) {
-            run_dialog(NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, "Erro ao processar a senha.");
+            run_dialog_error(NULL, "Erro ao processar a senha.");
             fclose(file);
             return user_authenticated;
         }
@@ -47,7 +47,7 @@ gboolean db_user_insert(const gchar* username, const gchar* password) {
 
     FILE* file = fopen("users.txt", "a+");
     if (file == NULL) {
-        run_dialog(NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, "Erro ao criar banco de dados");
+        run_dialog_error(NULL, "Erro ao criar banco de dados");
         return user_registered;
     }
 
@@ -90,7 +90,7 @@ gboolean db_company_insert(
 
     FILE* file = fopen("companies.txt", "a+");
     if (file == NULL) {
-        run_dialog(NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, "Erro ao criar banco de dados");
+        run_dialog_error(NULL, "Erro ao criar banco de dados");
         return company_registered;
     }
     fprintf(file, "%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s\n",

@@ -1,11 +1,11 @@
-#include "callbacks.h"
+#include "include/callbacks.h"
 
 #include <ctype.h>
 
-#include "ui.h"
-#include "structs.h"
-#include "util.h"
-#include "db.h"
+#include "include/ui.h"
+#include "include/structs.h"
+#include "include/util.h"
+#include "include/db.h"
 #include <gtk/gtk.h>
 
 void on_entry_set_numeric(GtkEditable *editable, const gchar* new_text) {
@@ -47,7 +47,6 @@ void on_button_company_register_clicked(GtkWidget* widget, gpointer data) {
     const gchar* address_zip_value = gtk_editable_get_text(GTK_EDITABLE(entries->address_zip_entry));
     const gchar* email_value = gtk_editable_get_text(GTK_EDITABLE(entries->email_entry));
     const gchar* opening_date_value = g_date_time_format_iso8601(gtk_calendar_get_date(GTK_CALENDAR(entries->opening_date_entry)));
-
 
     if (strlen(name_value) <= 0) {
         run_dialog_error(NULL, "Nome do responsável não preenchido");

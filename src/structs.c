@@ -1,4 +1,4 @@
-#include "structs.h"
+#include "include/structs.h"
 #include <gtk/gtk.h>
 
 EntryUserRegisterData* create_entry_user_register_data(GtkWidget* usernameEntry, GtkWidget* passwordEntry, GtkWidget* confirm_password_entry) {

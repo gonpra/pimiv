@@ -1,4 +1,4 @@
-#include "util.h"
+#include "include/util.h"
 
 void run_dialog(GtkWindow* parent, GtkDialogFlags flags, GtkMessageType type, GtkButtonsType button, const char* message_format) {
     GtkWidget *dialog = gtk_message_dialog_new(parent, flags, type, button, message_format);
@@ -89,4 +89,23 @@ gboolean is_valid_email(const gchar* email) {
     g_regex_unref(regex);
 
     return result;
+}
+
+void clear_box(GtkWidget* box) {
+    GtkWidget* child = gtk_widget_get_first_child(box);
+
+    while (child != NULL && gtk_widget_get_parent(child) == box) {
+        GtkWidget* first_child = gtk_widget_get_first_child(child);
+
+        if (GTK_IS_WIDGET(first_child)) {
+            gtk_box_remove(GTK_BOX(box), child);
+        }
+
+        child = first_child;
+    }
+}
+
+void set_box_content(GtkWidget* box, GtkWidget* content) {
+    clear_box(box);
+    gtk_box_append(GTK_BOX(box), content);
 }

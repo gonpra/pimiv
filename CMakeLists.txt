@@ -11,17 +11,19 @@ link_directories(${GTK4_LIBRARY_DIRS})
 
 add_definitions(${GTK4_CFLAGS_OTHER})
 
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -export-dynamic")
+
 add_executable(PIM src/main.c
         src/ui.c
-        src/ui.h
-        src/callbacks.h
         src/callbacks.c
-        src/structs.h
         src/structs.c
-        src/util.h
         src/util.c
         src/db.c
-        src/db.h
+        src/include/ui.h
+        src/include/callbacks.h
+        src/include/structs.h
+        src/include/util.h
+        src/include/db.h
 )
 
 target_link_libraries(PIM ${GTK4_LIBRARIES} -lcrypt)
