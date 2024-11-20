@@ -14,20 +14,18 @@ void on_entry_set_numeric(GtkEditable *editable, const gchar* new_text) {
     }
 }
 
-void on_show_page_user_login_clicked(GtkWidget* widget, gpointer data) {
-    show_page_login();
-}
+void on_switch_page(GtkWidget* widget, gpointer data) {
+    AppContext* context = (AppContext*) data;
 
-void on_show_page_user_register_clicked(GtkWidget* widget, gpointer data) {
-    show_page_register();
-}
-
-void on_show_page_home_clicked(GtkWidget* widget, gpointer data) {
-    show_page_home();
-}
-
-void on_show_page_user_register_company_clicked(GtkWidget* widget, gpointer data) {
-    show_page_register_company();
+    const gchar* target_page = g_object_get_data(G_OBJECT(GTK_BUTTON(widget)), "target-page");
+    if (target_page) {
+        gtk_stack_set_visible_child_name(GTK_STACK(context->page_stack), target_page);
+        if (g_strcmp0(target_page, PAGE_HOME) == 0 || g_strcmp0(target_page, PAGE_COMPANY_REGISTER) == 0) {
+            gtk_stack_set_visible_child_name(GTK_STACK(context->header_stack), HEADER_HOME);
+        } else {
+            gtk_stack_set_visible_child_name(GTK_STACK(context->header_stack), HEADER_INDEX);
+        }
+    }
 }
 
 void on_button_company_register_clicked(GtkWidget* widget, gpointer data) {
@@ -152,18 +150,24 @@ void on_button_company_register_clicked(GtkWidget* widget, gpointer data) {
     );
 
     if (success) {
-        show_page_home();
+        create_page_home();
     }
 }
 
 void on_button_user_login_clicked(GtkWidget* widget, gpointer data) {
     const EntryUserLoginData* entries = data;
+    const AppContext* context = entries->context;
 
     const gchar* usernameValue = gtk_editable_get_text(GTK_EDITABLE(entries->username_entry));
     const gchar* passwordValue = gtk_editable_get_text(GTK_EDITABLE(entries->password_entry));
 
     if(db_user_auth(usernameValue, passwordValue)) {
-        show_page_home();
+        // Clear entry boxes on login
+        gtk_editable_set_text(GTK_EDITABLE(entries->username_entry), "");
+        gtk_editable_set_text(GTK_EDITABLE(entries->password_entry), "");
+
+        gtk_stack_set_visible_child_name(GTK_STACK(context->header_stack), HEADER_HOME);
+        gtk_stack_set_visible_child_name(GTK_STACK(context->page_stack), PAGE_HOME);
         return;
     };
 

@@ -1,8 +1,9 @@
 #include "include/structs.h"
 #include <gtk/gtk.h>
 
-EntryUserRegisterData* create_entry_user_register_data(GtkWidget* usernameEntry, GtkWidget* passwordEntry, GtkWidget* confirm_password_entry) {
+EntryUserRegisterData* create_entry_user_register_data(AppContext* context, GtkWidget* usernameEntry, GtkWidget* passwordEntry, GtkWidget* confirm_password_entry) {
     EntryUserRegisterData* data = g_malloc(sizeof(EntryUserRegisterData));
+    data->context = context;
     data->username_entry = usernameEntry;
     data->password_entry = passwordEntry;
     data->confirm_password_entry = confirm_password_entry;
@@ -13,8 +14,9 @@ void free_entry_user_register_data(EntryUserRegisterData* data) {
     g_free(data);
 }
 
-EntryUserLoginData* create_entry_user_login_data(GtkWidget* username_entry, GtkWidget* password_entry) {
+EntryUserLoginData* create_entry_user_login_data(AppContext* context, GtkWidget* username_entry, GtkWidget* password_entry) {
     EntryUserLoginData* data = g_malloc(sizeof(EntryUserLoginData));
+    data->context = context;
     data->username_entry = username_entry;
     data->password_entry = password_entry;
     return data;
@@ -25,6 +27,7 @@ void free_entry_user_login_data(EntryUserLoginData* data) {
 }
 
 EntryCompanyRegisterData* create_entry_company_register_data(
+    AppContext* context,
     GtkWidget* name_entry,
     GtkWidget* company_name_entry,
     GtkWidget* cnpj_entry,
@@ -41,6 +44,7 @@ EntryCompanyRegisterData* create_entry_company_register_data(
     GtkWidget* opening_date_entry) {
 
     EntryCompanyRegisterData* data = g_malloc(sizeof(EntryCompanyRegisterData));
+    data->context = context;
     data->name_entry = name_entry;
     data->company_name_entry = company_name_entry;
     data->cnpj_entry = cnpj_entry;

@@ -3,17 +3,28 @@
 #include <gtk/gtk.h>
 
 typedef struct {
+    GtkWidget* header_stack;
+    GtkWidget* page_stack;
+} AppContext;
+
+typedef struct {
+    AppContext* context;
+
     GtkWidget* username_entry;
     GtkWidget* password_entry;
     GtkWidget* confirm_password_entry;
 } EntryUserRegisterData;
 
 typedef struct {
+    AppContext* context;
+
     GtkWidget* username_entry;
     GtkWidget* password_entry;
 } EntryUserLoginData;
 
 typedef struct {
+    AppContext* context;
+
     GtkWidget* name_entry;
     GtkWidget* company_name_entry;
     GtkWidget* cnpj_entry;
@@ -30,13 +41,14 @@ typedef struct {
     GtkWidget* opening_date_entry;
 } EntryCompanyRegisterData;
 
-EntryUserRegisterData* create_entry_user_register_data(GtkWidget* username_entry, GtkWidget* password_entry, GtkWidget* confirm_password_entry);
+EntryUserRegisterData* create_entry_user_register_data(AppContext* context, GtkWidget* username_entry, GtkWidget* password_entry, GtkWidget* confirm_password_entry);
 void free_entry_user_register_data(EntryUserRegisterData* data);
 
-EntryUserLoginData* create_entry_user_login_data(GtkWidget* username_entry, GtkWidget* password_entry);
+EntryUserLoginData* create_entry_user_login_data(AppContext* context, GtkWidget* username_entry, GtkWidget* password_entry);
 void free_entry_user_login_data(EntryUserLoginData* data);
 
 EntryCompanyRegisterData* create_entry_company_register_data(
+    AppContext* context,
     GtkWidget* name_entry,
     GtkWidget* company_name_entry,
     GtkWidget* cnpj_entry,

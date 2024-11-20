@@ -1,59 +1,79 @@
 #include "include/callbacks.h"
 #include "include/structs.h"
-#include "include/util.h"
 
 #define LAYOUT_USER_LOGIN "../src/layout/login-user.ui"
 #define LAYOUT_USER_REGISTER "../src/layout/register-user.ui"
 #define LAYOUT_COMPANY_REGISTER "../src/layout/register-company.ui"
 
-GtkWidget* main_box;
-GtkWidget* content_box;
+GtkWidget* main_window;
 
-void show_header_index() {
-    GtkWidget* button_box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 5);
+GtkWidget* create_header_index(gpointer data) {
+    AppContext* context = data;
+
+    GtkWidget* header = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 5);
+
     GtkWidget* btn_show_page_login = gtk_button_new_with_label("Login");
     GtkWidget* btn_show_page_register = gtk_button_new_with_label("Registrar");
 
-    g_signal_connect(btn_show_page_login, "clicked", G_CALLBACK(on_show_page_user_login_clicked), NULL);
-    g_signal_connect(btn_show_page_register, "clicked", G_CALLBACK(on_show_page_user_register_clicked), NULL);
+    g_object_set_data(G_OBJECT(btn_show_page_login), "target-page", PAGE_USER_LOGIN);
+    g_signal_connect(btn_show_page_login, "clicked", G_CALLBACK(on_switch_page), context);
 
-    gtk_box_append(GTK_BOX(button_box), btn_show_page_login);
-    gtk_box_append(GTK_BOX(button_box), btn_show_page_register);
+    g_object_set_data(G_OBJECT(btn_show_page_register), "target-page", PAGE_USER_REGISTER);
+    g_signal_connect(btn_show_page_register, "clicked", G_CALLBACK(on_switch_page), context);
 
-    gtk_box_append(GTK_BOX(main_box), button_box);
+    gtk_box_append(GTK_BOX(header), btn_show_page_login);
+    gtk_box_append(GTK_BOX(header), btn_show_page_register);
+
+    return header;
 }
 
-void show_header_home() {
-    GtkWidget* button_box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 5);
+GtkWidget* create_header_home(gpointer data) {
+    AppContext* context = data;
+
+    GtkWidget* header = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 5);
+
+    GtkWidget* btn_show_page_home = gtk_button_new_with_label("Home");
+    g_object_set_data(G_OBJECT(btn_show_page_home), "target-page", PAGE_HOME);
+    g_signal_connect(btn_show_page_home, "clicked", G_CALLBACK(on_switch_page), context);
+
+    GtkWidget* btn_logout = gtk_button_new_with_label("Logout");
+    g_object_set_data(G_OBJECT(btn_logout), "target-page", PAGE_USER_LOGIN);
+    g_signal_connect(btn_logout, "clicked", G_CALLBACK(on_switch_page), context);
 
     GtkWidget* btn_show_page_register_company = gtk_button_new_with_label("Registrar empresa");
-    g_signal_connect(btn_show_page_register_company, "clicked", G_CALLBACK(on_show_page_user_register_company_clicked), NULL);
+    g_object_set_data(G_OBJECT(btn_show_page_register_company), "target-page", PAGE_COMPANY_REGISTER);
+    g_signal_connect(btn_show_page_register_company, "clicked", G_CALLBACK(on_switch_page), context);
 
-    set_box_content(main_box, button_box);
-    gtk_box_append(GTK_BOX(button_box), btn_show_page_register_company);
+
+    gtk_box_append(GTK_BOX(header), btn_logout);
+    gtk_box_append(GTK_BOX(header), btn_show_page_home);
+    gtk_box_append(GTK_BOX(header), btn_show_page_register_company);
+
+    return header;
 }
 
-void on_item_activated() {
-    g_print("ativo!!");
-}
+GtkWidget* create_page_home(gpointer data) {
+    AppContext* context = data;
 
-void show_page_home() {
-    show_header_home();
+    GtkWidget* box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
 
     GtkWidget* list_box = gtk_list_box_new();
-    gtk_box_append(GTK_BOX(content_box), list_box);
-
     GtkWidget* item1 = gtk_button_new_with_label("Empresa");
     GtkWidget* item2 = gtk_button_new_with_label("Registrar");
 
     gtk_list_box_append(list_box, item1);
     gtk_list_box_append(list_box, item2);
 
-    g_signal_connect(list_box, "row-activated", G_CALLBACK(on_item_activated), NULL);
-    set_box_content(content_box, list_box);
+    gtk_box_append(GTK_BOX(box), list_box);
+
+    return box;
 }
 
-void show_page_register_company() {
+GtkWidget* create_page_register_company(gpointer data) {
+    AppContext* context = data;
+
+    GtkWidget* box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
+
     GtkBuilder* builder = gtk_builder_new_from_file(LAYOUT_COMPANY_REGISTER);
 
     GtkWidget* entry_box = GTK_WIDGET(gtk_builder_get_object(builder, "entry_box"));
@@ -77,6 +97,7 @@ void show_page_register_company() {
     GtkWidget* btn_register_company = GTK_WIDGET(gtk_builder_get_object(builder, "btn_register_company"));
 
     EntryCompanyRegisterData* entries = create_entry_company_register_data(
+        context,
         responsible_name_entry,
         company_name_entry,
         cnpj_entry,
@@ -92,13 +113,18 @@ void show_page_register_company() {
         email_entry,
         opening_date_entry
     );
+    g_object_set_data(btn_register_company, "target-page", PAGE_COMPANY_REGISTER);
     g_signal_connect(btn_register_company, "clicked", G_CALLBACK(on_button_company_register_clicked), entries);
 
-    set_box_content(content_box, entry_box);
-    gtk_box_append(GTK_BOX(entry_box), button_box);
+    gtk_box_append(GTK_BOX(box), entry_box);
+    // gtk_box_append(GTK_BOX(entry_box), button_box);
+
+    return box;
 }
 
-void show_page_login() {
+GtkWidget* create_page_login_user(gpointer data) {
+    AppContext* context = data;
+
     GtkBuilder* builder = gtk_builder_new_from_file(LAYOUT_USER_LOGIN);
 
     GtkWidget *entry_box = GTK_WIDGET(gtk_builder_get_object(builder, "entry_box"));
@@ -106,13 +132,16 @@ void show_page_login() {
     GtkWidget *entry_password = GTK_WIDGET(gtk_builder_get_object(builder, "password_entry"));
     GtkWidget *btn_login = GTK_WIDGET(gtk_builder_get_object(builder, "login_button"));
 
-    EntryUserLoginData* entries = create_entry_user_login_data(entry_username, entry_password);
+    EntryUserLoginData* entries = create_entry_user_login_data(context, entry_username, entry_password);
 
     g_signal_connect(btn_login, "clicked", G_CALLBACK(on_button_user_login_clicked), entries);
-    set_box_content(content_box, entry_box);
+
+    return entry_box;
 }
 
-void show_page_register() {
+GtkWidget* create_page_register_user(gpointer data) {
+    AppContext* context = data;
+
     GtkBuilder* builder = gtk_builder_new_from_file(LAYOUT_USER_REGISTER);
 
     GtkWidget *entry_box = GTK_WIDGET(gtk_builder_get_object(builder, "entry_box"));
@@ -121,10 +150,11 @@ void show_page_register() {
     GtkWidget *confirm_password_entry = GTK_WIDGET(gtk_builder_get_object(builder, "confirm_password_entry"));
     GtkWidget *btn_register = GTK_WIDGET(gtk_builder_get_object(builder, "register_button"));
 
-    EntryUserRegisterData* entries = create_entry_user_register_data(username_entry, password_entry, confirm_password_entry);
+    EntryUserRegisterData* entries = create_entry_user_register_data(context, username_entry, password_entry, confirm_password_entry);
 
     g_signal_connect(btn_register, "clicked", G_CALLBACK(on_button_user_register_clicked), entries);
-    set_box_content(content_box, entry_box);
+
+    return entry_box;
 }
 
 void on_activate(GtkApplication *app, gpointer user_data) {
@@ -132,14 +162,25 @@ void on_activate(GtkApplication *app, gpointer user_data) {
     gtk_window_set_title(GTK_WINDOW(window), "PIM IV");
     gtk_window_set_default_size(GTK_WINDOW(window), 840, 620);
 
-    main_box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
+    AppContext* context = g_malloc(sizeof(AppContext));
+    context->header_stack = gtk_stack_new();
+    context->page_stack = gtk_stack_new();
 
-    show_header_index();
+    gtk_stack_add_named(GTK_STACK(context->header_stack), create_header_index(context), HEADER_INDEX);
+    gtk_stack_add_named(GTK_STACK(context->header_stack), create_header_home(context), HEADER_HOME);
 
-    content_box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
-    // gtk_widget_set_halign(content_box, GTK_ALIGN_CENTER);
-    // gtk_widget_set_valign(content_box, GTK_ALIGN_CENTER);
-    gtk_box_append(GTK_BOX(main_box), content_box);
+    gtk_stack_set_transition_type(GTK_STACK(context->page_stack), GTK_STACK_TRANSITION_TYPE_SLIDE_LEFT_RIGHT);
+    gtk_stack_add_named(GTK_STACK(context->page_stack), create_page_home(context), PAGE_HOME);
+    gtk_stack_add_named(GTK_STACK(context->page_stack), create_page_register_company(context), PAGE_COMPANY_REGISTER);
+    gtk_stack_add_named(GTK_STACK(context->page_stack), create_page_login_user(context), PAGE_USER_LOGIN);
+    gtk_stack_add_named(GTK_STACK(context->page_stack), create_page_register_user(context), PAGE_USER_REGISTER);
+
+    gtk_stack_set_visible_child_name(GTK_STACK(context->header_stack), HEADER_INDEX);
+    gtk_stack_set_visible_child_name(GTK_STACK(context->page_stack), PAGE_USER_LOGIN);
+
+    GtkWidget* main_box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
+    gtk_box_append(GTK_BOX(main_box), context->header_stack);
+    gtk_box_append(GTK_BOX(main_box), context->page_stack);
 
     gtk_window_set_child(GTK_WINDOW(window), main_box);
     gtk_window_present(GTK_WINDOW(window));
