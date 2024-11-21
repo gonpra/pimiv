@@ -10,3 +10,4 @@ gboolean is_valid_cep(const gchar* cep);
 gboolean is_valid_email(const gchar* email);
 void clear_box(GtkWidget* box);
 void set_box_content(GtkWidget* box, GtkWidget* content);
+gchar* format_datetime_string(gchar* datetime);

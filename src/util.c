@@ -109,3 +109,35 @@ void set_box_content(GtkWidget* box, GtkWidget* content) {
     clear_box(box);
     gtk_box_append(GTK_BOX(box), content);
 }
+
+gchar* format_datetime_string(gchar* datetime_str) {
+    // Find the period (.) in the string that starts the microseconds
+    // gchar* period_pos = g_strstr_len(datetime_str, -1, ".");
+    //
+    // gchar* trimmed_str;
+    // if (period_pos != NULL) {
+    //     // Trim the string to exclude the microseconds part
+    //     trimmed_str = g_strndup(datetime_str, period_pos - datetime_str);
+    // } else {
+    //     // If there's no period, use the original string
+    //     trimmed_str = g_strdup(datetime_str);
+    // }
+    //
+    // gchar *dash_pos = strrchr(trimmed_str, '-');
+    //
+    // if (dash_pos != NULL) {
+    //     // Truncate the string up to the '-' character
+    //     *dash_pos = '\0';  // Replace the '-' with a null terminator, effectively trimming everything after it
+    // }
+    //
+    // gchar *datetime_str_with_timezone = g_strconcat(trimmed_str, "-03:00", NULL);
+    //
+    // // Convert the trimmed gchar* to GDateTime
+    // GDateTime *datetime = g_date_time_new_from_iso8601(datetime_str_with_timezone, NULL);
+    //
+    // // Format the GDateTime as day/month/year
+    // gchar *formatted_datetime = g_date_time_format(datetime, "%d/%m/%Y");
+    //
+    // return formatted_datetime;
+    return g_strchomp(datetime_str);
+}

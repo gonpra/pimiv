@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+    <object class="GtkScrolledWindow" id="scrolled_window">
+        <child>
+            <object class="GtkColumnView" id="column_view">
+                <property name="single-click-activate">false</property>
+                <property name="vexpand">true</property>
+                <property name="hexpand">true</property>
+                <property name="model">
+                    <object class="GtkSingleSelection" id="selection">
+                        <property name="model">
+                            <object class="GListStore" id="store">
+                                <property name="item-type">TableReport</property>
+                            </object>
+                        </property>
+                    </object>
+                </property>
+
+                <!-- Coluna Nome -->
+                <child>
+                    <object class="GtkColumnViewColumn" id="name_column">
+                        <property name="title">Nome</property>
+                        <property name="factory">
+                            <object class="GtkBuilderListItemFactory">
+                                <property name="bytes"><![CDATA[
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <template class="GtkListItem">
+    <property name="child">
+      <object class="GtkLabel">
+        <binding name="label">
+          <lookup name="name" type="TableReport">
+            <lookup name="item">GtkListItem</lookup>
+          </lookup>
+        </binding>
+      </object>
+    </property>
+  </template>
+</interface>
+]]></property>
+                            </object>
+                        </property>
+                    </object>
+                </child>
+
+                <!-- Nome da Empresa -->
+                <child>
+                    <object class="GtkColumnViewColumn" id="company_name_column">
+                        <property name="title">Nome da Empresa</property>
+                        <property name="factory">
+                            <object class="GtkBuilderListItemFactory">
+                                <property name="bytes"><![CDATA[
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <template class="GtkListItem">
+    <property name="child">
+      <object class="GtkLabel">
+        <binding name="label">
+          <lookup name="company-name" type="TableReport">
+            <lookup name="item">GtkListItem</lookup>
+          </lookup>
+        </binding>
+      </object>
+    </property>
+  </template>
+</interface>
+]]></property>
+                            </object>
+                        </property>
+                    </object>
+                </child>
+
+                <!-- CNPJ -->
+                <child>
+                    <object class="GtkColumnViewColumn" id="cnpj_column">
+                        <property name="title">CNPJ</property>
+                        <property name="factory">
+                            <object class="GtkBuilderListItemFactory">
+                                <property name="bytes"><![CDATA[
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <template class="GtkListItem">
+    <property name="child">
+      <object class="GtkLabel">
+        <binding name="label">
+          <lookup name="cnpj" type="TableReport">
+            <lookup name="item">GtkListItem</lookup>
+          </lookup>
+        </binding>
+      </object>
+    </property>
+  </template>
+</interface>
+]]></property>
+                            </object>
+                        </property>
+                    </object>
+                </child>
+
+                <!-- Razão Social -->
+                <child>
+                    <object class="GtkColumnViewColumn" id="legal_name_column">
+                        <property name="title">Razão Social</property>
+                        <property name="factory">
+                            <object class="GtkBuilderListItemFactory">
+                                <property name="bytes"><![CDATA[
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <template class="GtkListItem">
+    <property name="child">
+      <object class="GtkLabel">
+        <binding name="label">
+          <lookup name="legal-name" type="TableReport">
+            <lookup name="item">GtkListItem</lookup>
+          </lookup>
+        </binding>
+      </object>
+    </property>
+  </template>
+</interface>
+]]></property>
+                            </object>
+                        </property>
+                    </object>
+                </child>
+
+                <!-- Nome Fantasia -->
+                <child>
+                    <object class="GtkColumnViewColumn" id="trade_name_column">
+                        <property name="title">Nome Fantasia</property>
+                        <property name="factory">
+                            <object class="GtkBuilderListItemFactory">
+                                <property name="bytes"><![CDATA[
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <template class="GtkListItem">
+    <property name="child">
+      <object class="GtkLabel">
+        <binding name="label">
+          <lookup name="trade-name" type="TableReport">
+            <lookup name="item">GtkListItem</lookup>
+          </lookup>
+        </binding>
+      </object>
+    </property>
+  </template>
+</interface>
+]]></property>
+                            </object>
+                        </property>
+                    </object>
+                </child>
+
+                <!-- Telefone -->
+                <child>
+                    <object class="GtkColumnViewColumn" id="phone_column">
+                        <property name="title">Telefone</property>
+                        <property name="factory">
+                            <object class="GtkBuilderListItemFactory">
+                                <property name="bytes"><![CDATA[
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <template class="GtkListItem">
+    <property name="child">
+      <object class="GtkLabel">
+        <binding name="label">
+          <lookup name="phone" type="TableReport">
+            <lookup name="item">GtkListItem</lookup>
+          </lookup>
+        </binding>
+      </object>
+    </property>
+  </template>
+</interface>
+]]></property>
+                            </object>
+                        </property>
+                    </object>
+                </child>
+
+                <!-- Rua -->
+                <child>
+                    <object class="GtkColumnViewColumn" id="address_street_column">
+                        <property name="title">Rua</property>
+                        <property name="factory">
+                            <object class="GtkBuilderListItemFactory">
+                                <property name="bytes"><![CDATA[
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <template class="GtkListItem">
+    <property name="child">
+      <object class="GtkLabel">
+        <binding name="label">
+          <lookup name="address-street" type="TableReport">
+            <lookup name="item">GtkListItem</lookup>
+          </lookup>
+        </binding>
+      </object>
+    </property>
+  </template>
+</interface>
+]]></property>
+                            </object>
+                        </property>
+                    </object>
+                </child>
+
+                <!-- Número -->
+                <child>
+                    <object class="GtkColumnViewColumn" id="address_number_column">
+                        <property name="title">Número</property>
+                        <property name="factory">
+                            <object class="GtkBuilderListItemFactory">
+                                <property name="bytes"><![CDATA[
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <template class="GtkListItem">
+    <property name="child">
+      <object class="GtkLabel">
+        <binding name="label">
+          <lookup name="address-number" type="TableReport">
+            <lookup name="item">GtkListItem</lookup>
+          </lookup>
+        </binding>
+      </object>
+    </property>
+  </template>
+</interface>
+]]></property>
+                            </object>
+                        </property>
+                    </object>
+                </child>
+
+                <!-- Bairro -->
+                <child>
+                    <object class="GtkColumnViewColumn" id="address_neighborhood_column">
+                        <property name="title">Bairro</property>
+                        <property name="factory">
+                            <object class="GtkBuilderListItemFactory">
+                                <property name="bytes"><![CDATA[
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <template class="GtkListItem">
+    <property name="child">
+      <object class="GtkLabel">
+        <binding name="label">
+          <lookup name="address-neighborhood" type="TableReport">
+            <lookup name="item">GtkListItem</lookup>
+          </lookup>
+        </binding>
+      </object>
+    </property>
+  </template>
+</interface>
+]]></property>
+                            </object>
+                        </property>
+                    </object>
+                </child>
+
+                <!-- Cidade -->
+                <child>
+                    <object class="GtkColumnViewColumn" id="address_city_column">
+                        <property name="title">Cidade</property>
+                        <property name="factory">
+                            <object class="GtkBuilderListItemFactory">
+                                <property name="bytes"><![CDATA[
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <template class="GtkListItem">
+    <property name="child">
+      <object class="GtkLabel">
+        <binding name="label">
+          <lookup name="address-city" type="TableReport">
+            <lookup name="item">GtkListItem</lookup>
+          </lookup>
+        </binding>
+      </object>
+    </property>
+  </template>
+</interface>
+]]></property>
+                            </object>
+                        </property>
+                    </object>
+                </child>
+
+                <!-- Estado -->
+                <child>
+                    <object class="GtkColumnViewColumn" id="address_state_column">
+                        <property name="title">Estado</property>
+                        <property name="factory">
+                            <object class="GtkBuilderListItemFactory">
+                                <property name="bytes"><![CDATA[
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <template class="GtkListItem">
+    <property name="child">
+      <object class="GtkLabel">
+        <binding name="label">
+          <lookup name="address-state" type="TableReport">
+            <lookup name="item">GtkListItem</lookup>
+          </lookup>
+        </binding>
+      </object>
+    </property>
+  </template>
+</interface>
+]]></property>
+                            </object>
+                        </property>
+                    </object>
+                </child>
+
+                <!-- CEP -->
+                <child>
+                    <object class="GtkColumnViewColumn" id="address_zip_column">
+                        <property name="title">CEP</property>
+                        <property name="factory">
+                            <object class="GtkBuilderListItemFactory">
+                                <property name="bytes"><![CDATA[
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <template class="GtkListItem">
+    <property name="child">
+      <object class="GtkLabel">
+        <binding name="label">
+          <lookup name="address-zip" type="TableReport">
+            <lookup name="item">GtkListItem</lookup>
+          </lookup>
+        </binding>
+      </object>
+    </property>
+  </template>
+</interface>
+]]></property>
+                            </object>
+                        </property>
+                    </object>
+                </child>
+
+                <!-- Data de Abertura -->
+                <child>
+                    <object class="GtkColumnViewColumn" id="opening_date_column">
+                        <property name="title">Data de Abertura</property>
+                        <property name="factory">
+                            <object class="GtkBuilderListItemFactory">
+                                <property name="bytes"><![CDATA[
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <template class="GtkListItem">
+    <property name="child">
+      <object class="GtkLabel">
+        <binding name="label">
+          <lookup name="opening-date" type="TableReport">
+            <lookup name="item">GtkListItem</lookup>
+          </lookup>
+        </binding>
+      </object>
+    </property>
+  </template>
+</interface>
+]]></property>
+                            </object>
+                        </property>
+                    </object>
+                </child>
+            </object>
+        </child>
+    </object>
+</interface>

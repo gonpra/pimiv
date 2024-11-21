@@ -24,6 +24,11 @@ add_executable(PIM src/main.c
         src/include/structs.h
         src/include/util.h
         src/include/db.h
+        src/components/table-report.c
+        src/components/table-report.h
+        src/usecase.c
+        src/include/usecase.h
+        src/components/table-report-array.h
 )
 
 target_link_libraries(PIM ${GTK4_LIBRARIES} -lcrypt)

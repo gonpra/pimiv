@@ -2,6 +2,8 @@
 // Created by linpra on 11/19/24.
 //
 
+#include "components/table-report.h"
+#include "components/table-report-array.h"
 #include "include/db.h"
 #include "include/util.h"
 
@@ -113,4 +115,58 @@ gboolean db_company_insert(
     company_registered = TRUE;
 
     return company_registered;
+}
+
+TableReportArray* db_company_list() {
+        FILE* file = fopen("companies.txt", "r");
+    if (file == NULL) {
+        perror("Error opening file");
+        return NULL;
+    }
+
+    TableReport** reports = NULL; // Pointer to an array of TableReports
+    gint report_count = 0; // Initialize the count of reports
+
+    char line[256];
+    while (fgets(line, sizeof(line), file) != NULL) {
+        // Tokenize the line using ";" as the delimiter
+        gchar* name = strtok(line, ";");
+        gchar* company_name = strtok(NULL, ";");
+        gchar* cnpj = strtok(NULL, ";");
+        gchar* legal_name = strtok(NULL, ";");
+        gchar* trade_name = strtok(NULL, ";");
+        gchar* phone = strtok(NULL, ";");
+        gchar* address_street = strtok(NULL, ";");
+        gchar* address_number = strtok(NULL, ";");
+        gchar* address_neighborhood = strtok(NULL, ";");
+        gchar* address_city = strtok(NULL, ";");
+        gchar* address_state = strtok(NULL, ";");
+        gchar* address_zip = strtok(NULL, ";");
+        gchar* email = strtok(NULL, ";");
+        gchar* opening_date = strtok(NULL, ";");
+
+        // Create a new TableReport for the company
+        TableReport* company_report = table_report_new(name, company_name, cnpj, legal_name,
+                                                        trade_name, phone, address_street, address_number,
+                                                        address_neighborhood, address_city, address_state,
+                                                        address_zip, email, format_datetime_string(opening_date));
+
+        reports = realloc(reports, (report_count + 1) * sizeof(TableReport*));
+        if (reports == NULL) {
+            perror("Error reallocating memory for reports");
+            fclose(file);
+            return NULL; // Memory allocation failed
+        }
+
+        reports[report_count] = company_report;
+        report_count++; // Increment the number of reports
+    }
+
+    TableReportArray* array = malloc(sizeof(TableReportArray));
+    array->content = reports;
+    array->size = report_count;
+
+    fclose(file);
+
+    return array;
 }

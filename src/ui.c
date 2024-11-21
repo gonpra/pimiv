@@ -1,9 +1,13 @@
+#include "components/table-report-array.h"
+#include "components/table-report.h"
 #include "include/callbacks.h"
 #include "include/structs.h"
+#include "include/usecase.h"
 
 #define LAYOUT_USER_LOGIN "../src/layout/login-user.ui"
 #define LAYOUT_USER_REGISTER "../src/layout/register-user.ui"
 #define LAYOUT_COMPANY_REGISTER "../src/layout/register-company.ui"
+#define LAYOUT_HOME "../src/layout/home.ui"
 
 GtkWidget* main_window;
 
@@ -52,20 +56,34 @@ GtkWidget* create_header_home(gpointer data) {
     return header;
 }
 
-GtkWidget* create_page_home(gpointer data) {
-    AppContext* context = data;
+void ping(GtkWidget* widget, guint position, gpointer user_data) {
+    TableReport* po = gtk_single_selection_get_selected_item(user_data);
 
+    g_print("hel");
+}
+
+
+GtkWidget* create_page_home(gpointer data) {
     GtkWidget* box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
 
-    GtkWidget* list_box = gtk_list_box_new();
-    GtkWidget* item1 = gtk_button_new_with_label("Empresa");
-    GtkWidget* item2 = gtk_button_new_with_label("Registrar");
+    g_autoptr(GtkBuilder) builder = NULL;
+    g_type_ensure(TABLE_REPORT_TYPE);
 
-    gtk_list_box_append(list_box, item1);
-    gtk_list_box_append(list_box, item2);
+    builder = gtk_builder_new_from_file(LAYOUT_HOME);
 
-    gtk_box_append(GTK_BOX(box), list_box);
+    GtkWidget* scrolled_window = GTK_WIDGET(gtk_builder_get_object(builder, "scrolled_window"));
+    GtkWidget* column_view = GTK_WIDGET(gtk_builder_get_object(builder, "column_view"));
+    GObject* selection = gtk_builder_get_object(builder, "selection");
 
+    GListStore* store = G_LIST_STORE(gtk_builder_get_object(builder, "store"));
+    TableReportArray* reports = usecase_list_company();
+    for (int i = 0; i < reports->size; i++) {
+        g_list_store_append(store, reports->content[i]);
+    }
+
+    g_signal_connect(column_view, "activate", G_CALLBACK(ping), (gpointer) selection);
+
+    gtk_box_append(GTK_BOX(box), scrolled_window);
     return box;
 }
 
@@ -113,11 +131,10 @@ GtkWidget* create_page_register_company(gpointer data) {
         email_entry,
         opening_date_entry
     );
-    g_object_set_data(btn_register_company, "target-page", PAGE_COMPANY_REGISTER);
     g_signal_connect(btn_register_company, "clicked", G_CALLBACK(on_button_company_register_clicked), entries);
 
     gtk_box_append(GTK_BOX(box), entry_box);
-    // gtk_box_append(GTK_BOX(entry_box), button_box);
+    gtk_box_append(GTK_BOX(entry_box), button_box);
 
     return box;
 }
@@ -157,19 +174,34 @@ GtkWidget* create_page_register_user(gpointer data) {
     return entry_box;
 }
 
+void load_css() {
+    GtkCssProvider *css_provider = gtk_css_provider_new();
+    GdkDisplay *display = gdk_display_get_default();
+
+    gtk_css_provider_load_from_path(css_provider, "../src/style.css");
+    gtk_style_context_add_provider_for_display(display,
+                                               GTK_STYLE_PROVIDER(css_provider),
+                                               GTK_STYLE_PROVIDER_PRIORITY_USER);
+
+    g_object_unref(css_provider);
+}
+
 void on_activate(GtkApplication *app, gpointer user_data) {
     GtkWidget* window = gtk_application_window_new(app);
     gtk_window_set_title(GTK_WINDOW(window), "PIM IV");
-    gtk_window_set_default_size(GTK_WINDOW(window), 840, 620);
+    gtk_window_set_default_size(GTK_WINDOW(window), 1080, 620);
+
+    // load_css();
 
     AppContext* context = g_malloc(sizeof(AppContext));
     context->header_stack = gtk_stack_new();
     context->page_stack = gtk_stack_new();
 
+    gtk_stack_set_transition_type(GTK_STACK(context->header_stack), GTK_STACK_TRANSITION_TYPE_CROSSFADE);
     gtk_stack_add_named(GTK_STACK(context->header_stack), create_header_index(context), HEADER_INDEX);
     gtk_stack_add_named(GTK_STACK(context->header_stack), create_header_home(context), HEADER_HOME);
 
-    gtk_stack_set_transition_type(GTK_STACK(context->page_stack), GTK_STACK_TRANSITION_TYPE_SLIDE_LEFT_RIGHT);
+    gtk_stack_set_transition_type(GTK_STACK(context->page_stack), GTK_STACK_TRANSITION_TYPE_CROSSFADE);
     gtk_stack_add_named(GTK_STACK(context->page_stack), create_page_home(context), PAGE_HOME);
     gtk_stack_add_named(GTK_STACK(context->page_stack), create_page_register_company(context), PAGE_COMPANY_REGISTER);
     gtk_stack_add_named(GTK_STACK(context->page_stack), create_page_login_user(context), PAGE_USER_LOGIN);
@@ -178,7 +210,10 @@ void on_activate(GtkApplication *app, gpointer user_data) {
     gtk_stack_set_visible_child_name(GTK_STACK(context->header_stack), HEADER_INDEX);
     gtk_stack_set_visible_child_name(GTK_STACK(context->page_stack), PAGE_USER_LOGIN);
 
-    GtkWidget* main_box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
+    // gtk_widget_set_halign(context->page_stack, GTK_ALIGN_CENTER);
+    // gtk_widget_set_valign(context->page_stack, GTK_ALIGN_CENTER);
+
+    GtkWidget* main_box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
     gtk_box_append(GTK_BOX(main_box), context->header_stack);
     gtk_box_append(GTK_BOX(main_box), context->page_stack);
 
