@@ -108,7 +108,7 @@ void usecase_create_company(const EntryCompanyRegisterData* data) {
         return;
     }
 
-    gboolean success = db_company_insert(
+    gchar* error_message = db_company_insert(
         name_value,
         company_name_value,
         cnpj_value,
@@ -125,8 +125,10 @@ void usecase_create_company(const EntryCompanyRegisterData* data) {
         opening_date_value
     );
 
-    if (success) {
-        run_dialog(context->window, GTK_DIALOG_MODAL, GTK_MESSAGE_INFO, GTK_BUTTONS_OK, "Usuário registrado com sucesso!");
+    if (strlen(error_message) == 0) {
+        run_dialog(context->window, GTK_DIALOG_MODAL, GTK_MESSAGE_INFO, GTK_BUTTONS_OK, "Empresa registrada com sucesso!");
+    } else {
+        run_dialog_error(context->window, error_message);
     }
 }
 void usecase_create_user(const EntryUserRegisterData* data) {
@@ -156,8 +158,12 @@ void usecase_create_user(const EntryUserRegisterData* data) {
         return;
     }
 
-    db_user_insert(username_value, password_value);
-    run_dialog(context->window, GTK_DIALOG_MODAL, GTK_MESSAGE_INFO, GTK_BUTTONS_OK, "Usuário registrado com sucesso!");
+    gchar* error_message = db_user_insert(username_value, password_value);
+    if (strlen(error_message) == 0) {
+        run_dialog(context->window, GTK_DIALOG_MODAL, GTK_MESSAGE_INFO, GTK_BUTTONS_OK, "Usuário registrado com sucesso!");
+    } else {
+        run_dialog_error(context->window, error_message);
+    }
 }
 
 void usecase_auth_user(const EntryUserLoginData* data) {

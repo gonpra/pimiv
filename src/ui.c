@@ -111,6 +111,7 @@ GtkWidget* create_page_home(gpointer data) {
 
     GtkWidget* scrolled_window = GTK_WIDGET(gtk_builder_get_object(builder, "scrolled_window"));
     GtkWidget* column_view = GTK_WIDGET(gtk_builder_get_object(builder, "column_view"));
+    gtk_widget_set_halign(column_view, GTK_ALIGN_CENTER);
     GObject* selection = gtk_builder_get_object(builder, "selection");
 
     GListStore* store = G_LIST_STORE(gtk_builder_get_object(builder, "store"));
@@ -265,7 +266,6 @@ void on_activate(GtkApplication *app, gpointer user_data) {
     gtk_stack_add_named(GTK_STACK(context->page_stack), create_page_login_user(context), PAGE_USER_LOGIN);
     gtk_stack_add_named(GTK_STACK(context->page_stack), create_page_register_user(context), PAGE_USER_REGISTER);
     gtk_stack_add_named(GTK_STACK(context->page_stack), create_page_report(context), PAGE_REPORT);
-
 
     gtk_stack_set_visible_child_name(GTK_STACK(context->header_stack), HEADER_INDEX);
     gtk_stack_set_visible_child_name(GTK_STACK(context->page_stack), PAGE_USER_LOGIN);

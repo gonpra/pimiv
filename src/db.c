@@ -44,13 +44,13 @@ gboolean db_user_auth(const gchar* username, const gchar* password) {
     return user_authenticated;
 }
 
-gboolean db_user_insert(const gchar* username, const gchar* password) {
-    gboolean user_registered = FALSE;
+gchar* db_user_insert(const gchar* username, const gchar* password) {
+    gchar* error_message = "";
 
     FILE* file = fopen(TABLE_USERS, "a+");
     if (file == NULL) {
-        run_dialog_error(NULL, "Erro ao criar banco de dados");
-        return user_registered;
+        error_message = "Falha em abrir banco de dados";
+        return error_message;
     }
 
     // Get existent users
@@ -59,20 +59,19 @@ gboolean db_user_insert(const gchar* username, const gchar* password) {
         gchar* stored_username = strtok(line, ";");
 
         if (stored_username != NULL && strcmp(stored_username, username) == 0) {
-            run_dialog(NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, "Usuário já existente");
-            return user_registered;
+            error_message = "Usuário já existente";
+            return error_message;
         }
     }
 
     // Insert
     fprintf(file, "%s;%s\n", username, crypt(password, "PIM"));
     fclose(file);
-    user_registered = TRUE;
 
-    return user_registered;
+    return "";
 }
 
-gboolean db_company_insert(
+gchar* db_company_insert(
     const gchar* name,
     const gchar* company_name,
     const gchar* cnpj,
@@ -88,14 +87,14 @@ gboolean db_company_insert(
     const gchar* email,
     const gchar* opening_date
     ) {
-    gboolean company_registered = FALSE;
+    gchar* error_message = "";
     gchar line[1024]; // Buffer to read each line of the file
 
     // Open the file in read mode to check for duplicates
     FILE* file = fopen(TABLE_COMPANIES, "r");
     if (file == NULL) {
-        run_dialog_error(NULL, "Erro ao abrir o banco de dados");
-        return company_registered;
+        error_message = "Erro ao criar banco de dados";
+        return error_message;
     }
 
     // Check if the company_name already exists
@@ -105,11 +104,9 @@ gboolean db_company_insert(
         while (token != NULL) {
             if (field_index == 1) { // Field index 1 corresponds to company_name
                 if (strcmp(token, company_name) == 0) {
-                    char error_message[] = {0};
-                    snprintf(error_message, sizeof(error_message), "Empresa %s já está cadastrada", company_name);
-                    run_dialog_error(NULL, error_message);
+                    error_message = "Empresa já cadastrada";
                     fclose(file);
-                    return company_registered; // Return FALSE since company_name exists
+                    return error_message;
                 }
                 break;
             }
@@ -122,8 +119,8 @@ gboolean db_company_insert(
     // Open the file in append mode to add the new company data
     file = fopen(TABLE_COMPANIES, "a");
     if (file == NULL) {
-        run_dialog_error(NULL, "Erro ao abrir o banco de dados para escrita");
-        return company_registered;
+        error_message = "Erro ao criar banco de dados";
+        return error_message;
     }
 
     // Write the new company data to the file
@@ -144,9 +141,8 @@ gboolean db_company_insert(
         opening_date
     );
     fclose(file);
-    company_registered = TRUE;
 
-    return company_registered;
+    return "";
 }
 
 TableCompanyArray* db_company_list() {

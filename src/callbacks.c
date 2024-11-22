@@ -15,6 +15,10 @@ void ping() {
 }
 
 gboolean on_refresh_companies(gpointer data) {
+    if (g_list_model_get_n_items(G_LIST_MODEL(data))) {
+        return TRUE;
+    }
+
     g_list_store_remove_all(data);
 
     TableCompanyArray* reports = usecase_list_company();

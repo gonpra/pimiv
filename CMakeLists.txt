@@ -42,11 +42,24 @@ set(UI_FILES
     src/layout/report.ui
 )
 
+set(TABLE_FILES
+        ${CMAKE_BINARY_DIR}/db/reports.txt
+        ${CMAKE_BINARY_DIR}/db/companies.txt
+        ${CMAKE_BINARY_DIR}/db/users.txt
+)
+
 configure_file(src/style.css ${CMAKE_BINARY_DIR})
+set(TXT)
 
 foreach(UI_FILE ${UI_FILES})
     get_filename_component(UI_FILE_NAME ${UI_FILE} NAME)
     configure_file(${UI_FILE} ${CMAKE_BINARY_DIR}/layout/${UI_FILE_NAME})
+endforeach ()
+
+foreach (TABLE_FILE ${TABLE_FILES})
+    if (NOT EXISTS "${CMAKE_BINARY_DIR}/db/${TABLE_FILE}")
+        file(WRITE ${TABLE_FILE} "")
+    endif ()
 endforeach ()
 
 target_link_libraries(${PROJECT_NAME} PUBLIC PkgConfig::Xlsxwriter PkgConfig::GLIB2 ${GTK4_LIBRARIES} -lcrypt)
