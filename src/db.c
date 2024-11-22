@@ -2,15 +2,15 @@
 // Created by linpra on 11/19/24.
 //
 
-#include "components/table-report.h"
-#include "components/table-report-array.h"
+#include "components/table-company.h"
+#include "components/table-company-array.h"
 #include "include/db.h"
 #include "include/util.h"
 
 gboolean db_user_auth(const gchar* username, const gchar* password) {
     gboolean user_authenticated = FALSE;
 
-    FILE* file = fopen("users.txt", "r");
+    FILE* file = fopen(TABLE_USERS, "r");
     if (file == NULL) {
         run_dialog_error(NULL, "Erro ao abrir o banco de dados de usuários.");
         return user_authenticated;
@@ -47,7 +47,7 @@ gboolean db_user_auth(const gchar* username, const gchar* password) {
 gboolean db_user_insert(const gchar* username, const gchar* password) {
     gboolean user_registered = FALSE;
 
-    FILE* file = fopen("users.txt", "a+");
+    FILE* file = fopen(TABLE_USERS, "a+");
     if (file == NULL) {
         run_dialog_error(NULL, "Erro ao criar banco de dados");
         return user_registered;
@@ -89,12 +89,44 @@ gboolean db_company_insert(
     const gchar* opening_date
     ) {
     gboolean company_registered = FALSE;
+    gchar line[1024]; // Buffer to read each line of the file
 
-    FILE* file = fopen("companies.txt", "a+");
+    // Open the file in read mode to check for duplicates
+    FILE* file = fopen(TABLE_COMPANIES, "r");
     if (file == NULL) {
-        run_dialog_error(NULL, "Erro ao criar banco de dados");
+        run_dialog_error(NULL, "Erro ao abrir o banco de dados");
         return company_registered;
     }
+
+    // Check if the company_name already exists
+    while (fgets(line, sizeof(line), file) != NULL) {
+        gchar* token = strtok(line, ";"); // Tokenize the line
+        gint field_index = 0;
+        while (token != NULL) {
+            if (field_index == 1) { // Field index 1 corresponds to company_name
+                if (strcmp(token, company_name) == 0) {
+                    char error_message[] = {0};
+                    snprintf(error_message, sizeof(error_message), "Empresa %s já está cadastrada", company_name);
+                    run_dialog_error(NULL, error_message);
+                    fclose(file);
+                    return company_registered; // Return FALSE since company_name exists
+                }
+                break;
+            }
+            token = strtok(NULL, ";");
+            field_index++;
+        }
+    }
+    fclose(file);
+
+    // Open the file in append mode to add the new company data
+    file = fopen(TABLE_COMPANIES, "a");
+    if (file == NULL) {
+        run_dialog_error(NULL, "Erro ao abrir o banco de dados para escrita");
+        return company_registered;
+    }
+
+    // Write the new company data to the file
     fprintf(file, "%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s\n",
         name,
         company_name,
@@ -110,22 +142,21 @@ gboolean db_company_insert(
         address_zip,
         email,
         opening_date
-        ),
+    );
     fclose(file);
     company_registered = TRUE;
 
     return company_registered;
 }
 
-TableReportArray* db_company_list() {
-        FILE* file = fopen("companies.txt", "r");
+TableCompanyArray* db_company_list() {
+    FILE* file = fopen(TABLE_COMPANIES, "r");
     if (file == NULL) {
-        perror("Error opening file");
-        return NULL;
+        g_error("Erro ao abrir o banco de dados");
     }
 
-    TableReport** reports = NULL; // Pointer to an array of TableReports
-    gint report_count = 0; // Initialize the count of reports
+    TableCompany** companies = NULL; // Pointer to an array of TableReports
+    gint company_count = 0; // Initialize the count of reports
 
     char line[256];
     while (fgets(line, sizeof(line), file) != NULL) {
@@ -146,27 +177,186 @@ TableReportArray* db_company_list() {
         gchar* opening_date = strtok(NULL, ";");
 
         // Create a new TableReport for the company
-        TableReport* company_report = table_report_new(name, company_name, cnpj, legal_name,
+        TableCompany* company = table_company_new(name, company_name, cnpj, legal_name,
                                                         trade_name, phone, address_street, address_number,
                                                         address_neighborhood, address_city, address_state,
                                                         address_zip, email, format_datetime_string(opening_date));
 
-        reports = realloc(reports, (report_count + 1) * sizeof(TableReport*));
-        if (reports == NULL) {
+        companies = realloc(companies, (company_count + 1) * sizeof(TableCompany*));
+        if (companies == NULL) {
             perror("Error reallocating memory for reports");
             fclose(file);
             return NULL; // Memory allocation failed
         }
 
-        reports[report_count] = company_report;
-        report_count++; // Increment the number of reports
+        companies[company_count] = company;
+        company_count++; // Increment the number of reports
     }
 
-    TableReportArray* array = malloc(sizeof(TableReportArray));
-    array->content = reports;
-    array->size = report_count;
+    TableCompanyArray* array = malloc(sizeof(TableCompanyArray));
+    array->content = companies;
+    array->size = company_count;
 
     fclose(file);
 
     return array;
+}
+
+gboolean db_report_save(const gchar* company_name, const gchar* month, const gchar* gas_spending, const gchar* money_spending) {
+    FILE *file = fopen("reports.txt", "r+");
+    if (file == NULL) {
+        // If the file doesn't exist, create a new one
+        file = fopen("reports.txt", "w+");
+        if (file == NULL) {
+            return FALSE;  // Failed to open the file
+        }
+    }
+
+    gchar line[256];
+    gboolean entry_found = FALSE;
+    GString *file_content = g_string_new("");  // To store the entire file content
+    gchar *company_name_trimmed = g_strstrip(g_strdup(company_name));
+    gchar *month_trimmed = g_strstrip(g_strdup(month));
+    gchar *gas_spending_trimmed = g_strstrip(g_strdup(gas_spending));
+    gchar *money_spending_trimmed = g_strstrip(g_strdup(money_spending));
+
+    // Read the file content and check if the entry exists
+    while (fgets(line, sizeof(line), file)) {
+        // Ensure to separate the fields properly by the semicolon
+        gchar *line_company_name = strtok(line, ";");
+        gchar *line_month = strtok(NULL, ";");
+        gchar *line_gas_spending = strtok(NULL, ";");
+        gchar *line_money_spending = strtok(NULL, "\n");
+
+        // Strip whitespace from fields in the file
+        if (line_company_name) g_strstrip(line_company_name);
+        if (line_month) g_strstrip(line_month);
+        if (line_gas_spending) g_strstrip(line_gas_spending);
+        if (line_money_spending) g_strstrip(line_money_spending);
+
+        // Check if both company and month match
+        if (line_company_name && line_month && strcmp(line_company_name, company_name_trimmed) == 0 && strcmp(line_month, month_trimmed) == 0) {
+            // Set the entry found flag and update the spending if both match
+            entry_found = TRUE;
+            // Update the gas and money spending in the line
+            g_string_append_printf(file_content, "%s;%s;%s;%s\n", company_name_trimmed, month_trimmed, gas_spending_trimmed, money_spending_trimmed);
+        } else {
+            // Append the unchanged line to file content with proper line break
+            g_string_append_printf(file_content, "%s;%s;%s;%s\n", line_company_name, line_month, line_gas_spending, line_money_spending);
+        }
+    }
+
+    // If the entry wasn't found, append a new entry
+    if (!entry_found) {
+        g_string_append_printf(file_content, "%s;%s;%s;%s\n", company_name_trimmed, month_trimmed, gas_spending_trimmed, money_spending_trimmed);
+    }
+
+    // Write the updated content back to the file
+    fclose(file);  // Close the file after reading
+    file = fopen("reports.txt", "w+");  // Reopen the file in write mode to overwrite it
+    if (file == NULL) {
+        return FALSE;  // Failed to open the file for writing
+    }
+
+    fputs(file_content->str, file);  // Write the entire updated content to the file
+
+    fclose(file);
+    g_string_free(file_content, TRUE);  // Free the GString
+
+    // Free allocated memory for trimmed strings
+    g_free(company_name_trimmed);
+    g_free(month_trimmed);
+    g_free(gas_spending_trimmed);
+    g_free(money_spending_trimmed);
+
+    return TRUE;
+}
+
+gint* db_reports_get_gas_spending_by_company_name(const gchar* company_name) {
+    FILE* file = fopen("reports.txt", "r");
+    if (!file) {
+        return NULL;  // File doesn't exist or cannot be opened
+    }
+
+    // Initialize an array for 12 months, default value is 0
+    gint* gas_spending = g_new0(gint, 12);
+
+    gchar line[256];
+    gchar* company_name_trimmed = g_strstrip(g_strdup(company_name));
+
+    const gchar* months[] = {
+        "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+        "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
+    };
+
+    while (fgets(line, sizeof(line), file)) {
+        // Split the line into fields
+        gchar* line_company_name = strtok(line, ";");
+        gchar* line_month = strtok(NULL, ";");
+        gchar* line_gas_spending = strtok(NULL, ";");
+
+        // Strip whitespace from fields
+        if (line_company_name) g_strstrip(line_company_name);
+        if (line_month) g_strstrip(line_month);
+
+        // Check if this line belongs to the given company
+        if (line_company_name && strcmp(line_company_name, company_name_trimmed) == 0) {
+            for (int i = 0; i < 12; i++) {
+                if (line_month && strcmp(line_month, months[i]) == 0) {
+                    // Parse gas spending and assign to the respective month
+                    gas_spending[i] = line_gas_spending ? atoi(g_strstrip(line_gas_spending)) : 0;
+                    break;
+                }
+            }
+        }
+    }
+
+    fclose(file);
+    g_free(company_name_trimmed);
+    return gas_spending;  // Caller must free the returned array
+}
+
+gint* db_reports_get_money_spending_by_company_name(const gchar* company_name) {
+    FILE* file = fopen("reports.txt", "r");
+    if (!file) {
+        return NULL;  // File doesn't exist or cannot be opened
+    }
+
+    // Initialize an array for 12 months, default value is 0
+    gint* money_spending = g_new0(gint, 12);
+
+    gchar line[256];
+    gchar* company_name_trimmed = g_strstrip(g_strdup(company_name));
+
+    const gchar* months[] = {
+        "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+        "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
+    };
+
+    while (fgets(line, sizeof(line), file)) {
+        // Split the line into fields
+        gchar* line_company_name = strtok(line, ";");
+        gchar* line_month = strtok(NULL, ";");
+        strtok(NULL, ";");  // Skip gas spending
+        gchar* line_money_spending = strtok(NULL, "\n");
+
+        // Strip whitespace from fields
+        if (line_company_name) g_strstrip(line_company_name);
+        if (line_month) g_strstrip(line_month);
+
+        // Check if this line belongs to the given company
+        if (line_company_name && strcmp(line_company_name, company_name_trimmed) == 0) {
+            for (int i = 0; i < 12; i++) {
+                if (line_month && strcmp(line_month, months[i]) == 0) {
+                    // Parse money spending and assign to the respective month
+                    money_spending[i] = line_money_spending ? atoi(g_strstrip(line_money_spending)) : 0;
+                    break;
+                }
+            }
+        }
+    }
+
+    fclose(file);
+    g_free(company_name_trimmed);
+    return money_spending;  // Caller must free the returned array
 }

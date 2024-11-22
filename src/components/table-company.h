@@ -4,9 +4,9 @@
 
 G_BEGIN_DECLS
 
-#define TABLE_REPORT_TYPE (table_report_get_type ())
-G_DECLARE_FINAL_TYPE(TableReport, table_report, TABLE, REPORT, GObject)
-TableReport* table_report_new(const gchar *name,
+#define TABLE_COMPANY_TYPE (table_company_get_type())
+G_DECLARE_FINAL_TYPE(TableCompany, table_company, TABLE, COMPANY, GObject)
+TableCompany* table_company_new(const gchar *name,
                               const gchar *company_name,
                               const gchar *cnpj,
                               const gchar *legal_name,

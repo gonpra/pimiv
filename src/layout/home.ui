@@ -10,7 +10,7 @@
                     <object class="GtkSingleSelection" id="selection">
                         <property name="model">
                             <object class="GListStore" id="store">
-                                <property name="item-type">TableReport</property>
+                                <property name="item-type">TableCompany</property>
                             </object>
                         </property>
                     </object>
@@ -29,7 +29,7 @@
     <property name="child">
       <object class="GtkLabel">
         <binding name="label">
-          <lookup name="name" type="TableReport">
+          <lookup name="name" type="TableCompany">
             <lookup name="item">GtkListItem</lookup>
           </lookup>
         </binding>
@@ -56,7 +56,7 @@
     <property name="child">
       <object class="GtkLabel">
         <binding name="label">
-          <lookup name="company-name" type="TableReport">
+          <lookup name="company-name" type="TableCompany">
             <lookup name="item">GtkListItem</lookup>
           </lookup>
         </binding>
@@ -83,7 +83,7 @@
     <property name="child">
       <object class="GtkLabel">
         <binding name="label">
-          <lookup name="cnpj" type="TableReport">
+          <lookup name="cnpj" type="TableCompany">
             <lookup name="item">GtkListItem</lookup>
           </lookup>
         </binding>
@@ -110,7 +110,7 @@
     <property name="child">
       <object class="GtkLabel">
         <binding name="label">
-          <lookup name="legal-name" type="TableReport">
+          <lookup name="legal-name" type="TableCompany">
             <lookup name="item">GtkListItem</lookup>
           </lookup>
         </binding>
@@ -137,7 +137,7 @@
     <property name="child">
       <object class="GtkLabel">
         <binding name="label">
-          <lookup name="trade-name" type="TableReport">
+          <lookup name="trade-name" type="TableCompany">
             <lookup name="item">GtkListItem</lookup>
           </lookup>
         </binding>
@@ -164,7 +164,7 @@
     <property name="child">
       <object class="GtkLabel">
         <binding name="label">
-          <lookup name="phone" type="TableReport">
+          <lookup name="phone" type="TableCompany">
             <lookup name="item">GtkListItem</lookup>
           </lookup>
         </binding>
@@ -191,7 +191,7 @@
     <property name="child">
       <object class="GtkLabel">
         <binding name="label">
-          <lookup name="address-street" type="TableReport">
+          <lookup name="address-street" type="TableCompany">
             <lookup name="item">GtkListItem</lookup>
           </lookup>
         </binding>
@@ -218,7 +218,7 @@
     <property name="child">
       <object class="GtkLabel">
         <binding name="label">
-          <lookup name="address-number" type="TableReport">
+          <lookup name="address-number" type="TableCompany">
             <lookup name="item">GtkListItem</lookup>
           </lookup>
         </binding>
@@ -245,7 +245,7 @@
     <property name="child">
       <object class="GtkLabel">
         <binding name="label">
-          <lookup name="address-neighborhood" type="TableReport">
+          <lookup name="address-neighborhood" type="TableCompany">
             <lookup name="item">GtkListItem</lookup>
           </lookup>
         </binding>
@@ -272,7 +272,7 @@
     <property name="child">
       <object class="GtkLabel">
         <binding name="label">
-          <lookup name="address-city" type="TableReport">
+          <lookup name="address-city" type="TableCompany">
             <lookup name="item">GtkListItem</lookup>
           </lookup>
         </binding>
@@ -299,7 +299,7 @@
     <property name="child">
       <object class="GtkLabel">
         <binding name="label">
-          <lookup name="address-state" type="TableReport">
+          <lookup name="address-state" type="TableCompany">
             <lookup name="item">GtkListItem</lookup>
           </lookup>
         </binding>
@@ -326,7 +326,7 @@
     <property name="child">
       <object class="GtkLabel">
         <binding name="label">
-          <lookup name="address-zip" type="TableReport">
+          <lookup name="address-zip" type="TableCompany">
             <lookup name="item">GtkListItem</lookup>
           </lookup>
         </binding>
@@ -353,7 +353,7 @@
     <property name="child">
       <object class="GtkLabel">
         <binding name="label">
-          <lookup name="opening-date" type="TableReport">
+          <lookup name="opening-date" type="TableCompany">
             <lookup name="item">GtkListItem</lookup>
           </lookup>
         </binding>

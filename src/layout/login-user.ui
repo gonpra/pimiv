@@ -25,7 +25,6 @@
                 <child>
                     <object class="GtkButton" id="login_button">
                         <property name="label">Login</property>
-<!--                        <signal name="clicked" handler="on_button_user_login_clicked"/>-->
                     </object>
                 </child>
             </object>

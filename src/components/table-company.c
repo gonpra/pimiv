@@ -2,12 +2,11 @@
 // Created by linpra on 11/20/24.
 //
 
-#include "table-report.h"
+#include "table-company.h"
 #include <glib-object.h>
 
 enum {
-    PROP_0,
-    PROP_NAME,
+    PROP_NAME = 1,
     PROP_COMPANY_NAME,
     PROP_CNPJ,
     PROP_LEGAL_NAME,
@@ -26,7 +25,7 @@ enum {
 
 static GParamSpec *properties[N_PROPERTIES];
 
-struct _TableReport {
+struct _TableCompany {
     GObject parent_instance;
 
     gchar *name;
@@ -45,11 +44,11 @@ struct _TableReport {
     gchar *opening_date;
 };
 
-G_DEFINE_TYPE(TableReport, table_report, G_TYPE_OBJECT)
+G_DEFINE_TYPE(TableCompany, table_company, G_TYPE_OBJECT)
 
 // Funções para setar as propriedades
-static void table_report_set_property(GObject *object, guint property_id, const GValue *value, GParamSpec *pspec) {
-    TableReport *self = TABLE_REPORT(object);
+static void table_company_set_property(GObject *object, guint property_id, const GValue *value, GParamSpec *pspec) {
+    TableCompany* self = TABLE_COMPANY(object);
 
     switch (property_id) {
         case PROP_NAME:
@@ -115,8 +114,8 @@ static void table_report_set_property(GObject *object, guint property_id, const 
 }
 
 // Funções para obter as propriedades
-static void table_report_get_property(GObject *object, guint property_id, GValue *value, GParamSpec *pspec) {
-    TableReport *self = TABLE_REPORT(object);
+static void table_company_get_property(GObject *object, guint property_id, GValue *value, GParamSpec *pspec) {
+    TableCompany* self = TABLE_COMPANY(object);
 
     switch (property_id) {
         case PROP_NAME:
@@ -168,8 +167,8 @@ static void table_report_get_property(GObject *object, guint property_id, GValue
 }
 
 // Inicializa as propriedades do objeto
-static void table_report_finalize(GObject *object) {
-    TableReport *self = TABLE_REPORT(object);
+static void table_company_finalize(GObject *object) {
+    TableCompany* self = TABLE_COMPANY(object);
 
     g_free(self->name);
     g_free(self->company_name);
@@ -186,19 +185,19 @@ static void table_report_finalize(GObject *object) {
     g_free(self->email);
     g_free(self->opening_date);
 
-    G_OBJECT_CLASS(table_report_parent_class)->finalize(object);
+    G_OBJECT_CLASS(table_company_parent_class)->finalize(object);
 }
 
 // Inicializa o objeto
-static void table_report_init(TableReport *self) {}
+static void table_company_init(TableCompany* self) {}
 
 // Inicializa a classe
-static void table_report_class_init(TableReportClass *klass) {
+static void table_company_class_init(TableCompanyClass *klass) {
     GObjectClass *object_class = G_OBJECT_CLASS(klass);
 
-    object_class->set_property = table_report_set_property;
-    object_class->get_property = table_report_get_property;
-    object_class->finalize = table_report_finalize;
+    object_class->set_property = table_company_set_property;
+    object_class->get_property = table_company_get_property;
+    object_class->finalize = table_company_finalize;
 
     GParamFlags flags = G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS;
 
@@ -220,8 +219,8 @@ static void table_report_class_init(TableReportClass *klass) {
     g_object_class_install_properties(object_class, N_PROPERTIES, properties);
 }
 
-// Cria um novo objeto TableReport
-TableReport* table_report_new(const gchar *name,
+// Cria um novo objeto Tablecompany
+TableCompany* table_company_new(const gchar *name,
                               const gchar *company_name,
                               const gchar *cnpj,
                               const gchar *legal_name,
@@ -235,7 +234,7 @@ TableReport* table_report_new(const gchar *name,
                               const gchar *address_zip,
                               const gchar *email,
                               const gchar *opening_date) {
-    return g_object_new(TABLE_REPORT_TYPE,
+    return g_object_new(TABLE_COMPANY_TYPE,
                         "name", name,
                         "company-name", company_name,
                         "cnpj", cnpj,

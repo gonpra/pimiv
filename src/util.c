@@ -1,16 +1,18 @@
 #include "include/util.h"
+#include <xlsxwriter.h>
 
-void run_dialog(GtkWindow* parent, GtkDialogFlags flags, GtkMessageType type, GtkButtonsType button, const char* message_format) {
+void run_dialog(GtkWindow *parent, GtkDialogFlags flags, GtkMessageType type, GtkButtonsType button,
+                const char *message_format) {
     GtkWidget *dialog = gtk_message_dialog_new(parent, flags, type, button, message_format);
     gtk_widget_show(dialog);
     g_signal_connect(dialog, "response", G_CALLBACK(gtk_window_destroy), NULL);
 }
 
-void run_dialog_error(GtkWindow* parent, const gchar* message) {
+void run_dialog_error(GtkWindow *parent, const gchar *message) {
     run_dialog(parent, GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, message);
 }
 
-gboolean is_valid_cnpj(const gchar* cnpj) {
+gboolean is_valid_cnpj(const gchar *cnpj) {
     if (strlen(cnpj) != 14) {
         return FALSE;
     }
@@ -49,7 +51,7 @@ gboolean is_valid_cnpj(const gchar* cnpj) {
     return TRUE; // CNPJ is valid
 }
 
-gboolean is_valid_phone(const gchar* telephone) {
+gboolean is_valid_phone(const gchar *telephone) {
     // This regex will allow a format like +1234567890, 123-456-7890, or 1234567890.
     GRegex *regex = g_regex_new("^\\+?\\d{1,4}[-\\s]?\\(?\\d{1,4}\\)?[-\\s]?\\d{6,10}$", 0, 0, NULL);
     gboolean isMatch = g_regex_match(regex, telephone, 0, NULL);
@@ -59,7 +61,7 @@ gboolean is_valid_phone(const gchar* telephone) {
     return isMatch;
 }
 
-gboolean is_valid_cep(const gchar* cep) {
+gboolean is_valid_cep(const gchar *cep) {
     const gchar *pattern = "^[0-9]{5}[0-9]{3}$";
 
     GRegex *regex = g_regex_new(pattern, 0, 0, NULL);
@@ -76,7 +78,7 @@ gboolean is_valid_cep(const gchar* cep) {
     return isMatch;
 }
 
-gboolean is_valid_email(const gchar* email) {
+gboolean is_valid_email(const gchar *email) {
     GRegex *regex;
     gboolean result;
 
@@ -91,11 +93,11 @@ gboolean is_valid_email(const gchar* email) {
     return result;
 }
 
-void clear_box(GtkWidget* box) {
-    GtkWidget* child = gtk_widget_get_first_child(box);
+void clear_box(GtkWidget *box) {
+    GtkWidget *child = gtk_widget_get_first_child(box);
 
     while (child != NULL && gtk_widget_get_parent(child) == box) {
-        GtkWidget* first_child = gtk_widget_get_first_child(child);
+        GtkWidget *first_child = gtk_widget_get_first_child(child);
 
         if (GTK_IS_WIDGET(first_child)) {
             gtk_box_remove(GTK_BOX(box), child);
@@ -105,12 +107,12 @@ void clear_box(GtkWidget* box) {
     }
 }
 
-void set_box_content(GtkWidget* box, GtkWidget* content) {
+void set_box_content(GtkWidget *box, GtkWidget *content) {
     clear_box(box);
     gtk_box_append(GTK_BOX(box), content);
 }
 
-gchar* format_datetime_string(gchar* datetime_str) {
+gchar *format_datetime_string(gchar *datetime_str) {
     // Find the period (.) in the string that starts the microseconds
     // gchar* period_pos = g_strstr_len(datetime_str, -1, ".");
     //

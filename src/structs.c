@@ -10,10 +10,6 @@ EntryUserRegisterData* create_entry_user_register_data(AppContext* context, GtkW
     return data;
 }
 
-void free_entry_user_register_data(EntryUserRegisterData* data) {
-    g_free(data);
-}
-
 EntryUserLoginData* create_entry_user_login_data(AppContext* context, GtkWidget* username_entry, GtkWidget* password_entry) {
     EntryUserLoginData* data = g_malloc(sizeof(EntryUserLoginData));
     data->context = context;
@@ -22,8 +18,15 @@ EntryUserLoginData* create_entry_user_login_data(AppContext* context, GtkWidget*
     return data;
 }
 
-void free_entry_user_login_data(EntryUserLoginData* data) {
-    g_free(data);
+EntryReportSaveData* create_entry_report_save_data(AppContext* context, GtkWidget* gas_spending_drawing_area, GtkWidget* money_spending_drawing_area, GtkWidget* gas_spending_entry, GtkWidget* money_spending_entry, GtkWidget* month_entry) {
+    EntryReportSaveData* data = g_malloc(sizeof(EntryReportSaveData));
+    data->context = context;
+    data->gas_spending_drawing_area = gas_spending_drawing_area;
+    data->money_spending_drawing_area = money_spending_drawing_area;
+    data->gas_spending_entry = gas_spending_entry;
+    data->money_spending_entry = money_spending_entry;
+    data->month_entry = month_entry;
+    return data;
 }
 
 EntryCompanyRegisterData* create_entry_company_register_data(
@@ -61,8 +64,4 @@ EntryCompanyRegisterData* create_entry_company_register_data(
     data->opening_date_entry = opening_date_entry;
 
     return data;
-}
-
-void free_entry_company_register_data(EntryCompanyRegisterData* data) {
-    g_free(data);
 }

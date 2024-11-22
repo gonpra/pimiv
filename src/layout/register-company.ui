@@ -111,11 +111,5 @@
                 <property name="label">Registrar empresa</property>
             </object>
         </child>
-
-        <child>
-            <object class="GtkButton" id="btn_return">
-                <property name="label">Voltar</property>
-            </object>
-        </child>
     </object>
 </interface>
