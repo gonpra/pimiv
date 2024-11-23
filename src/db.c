@@ -249,7 +249,7 @@ gboolean db_report_save(const gchar* company_name, const gchar* month, const gch
 
     // Write the updated content back to the file
     fclose(file);  // Close the file after reading
-    file = fopen("reports.txt", "w+");  // Reopen the file in write mode to overwrite it
+    file = fopen(TABLE_REPORTS, "w+");  // Reopen the file in write mode to overwrite it
     if (file == NULL) {
         return FALSE;  // Failed to open the file for writing
     }
@@ -269,7 +269,7 @@ gboolean db_report_save(const gchar* company_name, const gchar* month, const gch
 }
 
 gint* db_reports_get_gas_spending_by_company_name(const gchar* company_name) {
-    FILE* file = fopen("reports.txt", "r");
+    FILE* file = fopen(TABLE_REPORTS, "r");
     if (!file) {
         return NULL;  // File doesn't exist or cannot be opened
     }
@@ -313,7 +313,7 @@ gint* db_reports_get_gas_spending_by_company_name(const gchar* company_name) {
 }
 
 gint* db_reports_get_money_spending_by_company_name(const gchar* company_name) {
-    FILE* file = fopen("reports.txt", "r");
+    FILE* file = fopen(TABLE_REPORTS, "r");
     if (!file) {
         return NULL;  // File doesn't exist or cannot be opened
     }
