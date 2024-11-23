@@ -57,7 +57,7 @@ foreach(UI_FILE ${UI_FILES})
 endforeach ()
 
 foreach (TABLE_FILE ${TABLE_FILES})
-    if (NOT EXISTS "${CMAKE_BINARY_DIR}/db/${TABLE_FILE}")
+    if (NOT EXISTS "${TABLE_FILE}")
         file(WRITE ${TABLE_FILE} "")
     endif ()
 endforeach ()

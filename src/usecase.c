@@ -250,7 +250,7 @@ gboolean usecase_create_report_xls_file(const gchar* output_path) {
             // Set headers
             worksheet_write_string(worksheet, 0, 0, "Nome da empresa", NULL);
             worksheet_write_string(worksheet, 0, 1, "Mês", NULL);
-            worksheet_write_string(worksheet, 0, 2, "Gastos de gases em litros", NULL);
+            worksheet_write_string(worksheet, 0, 2, "Gastos de gases em toneladas", NULL);
             worksheet_write_string(worksheet, 0, 3, "Valor gasto ao mês", NULL);
 
             // Write the parsed tokens to the Excel worksheet

@@ -141,5 +141,8 @@ gchar *format_datetime_string(gchar *datetime_str) {
     // gchar *formatted_datetime = g_date_time_format(datetime, "%d/%m/%Y");
     //
     // return formatted_datetime;
+    if (datetime_str == NULL) {
+        return datetime_str;
+    }
     return g_strchomp(datetime_str);
 }

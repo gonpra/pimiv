@@ -11,11 +11,6 @@ label {
     transition: color 0.3s; /* Smooth transition for label color */
 }
 
-window {
-    padding: 20px;
-    transition: background-color 0.3s;
-}
-
 box {
     padding: 10px;
     min-width: unset;

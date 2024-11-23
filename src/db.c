@@ -154,7 +154,7 @@ TableCompanyArray* db_company_list() {
     TableCompany** companies = NULL; // Pointer to an array of TableReports
     gint company_count = 0; // Initialize the count of reports
 
-    char line[256];
+    char line[1024];
     while (fgets(line, sizeof(line), file) != NULL) {
         // Tokenize the line using ";" as the delimiter
         gchar* name = strtok(line, ";");
@@ -199,10 +199,10 @@ TableCompanyArray* db_company_list() {
 }
 
 gboolean db_report_save(const gchar* company_name, const gchar* month, const gchar* gas_spending, const gchar* money_spending) {
-    FILE *file = fopen("reports.txt", "r+");
+    FILE *file = fopen(TABLE_REPORTS, "r+");
     if (file == NULL) {
         // If the file doesn't exist, create a new one
-        file = fopen("reports.txt", "w+");
+        file = fopen(TABLE_REPORTS, "w+");
         if (file == NULL) {
             return FALSE;  // Failed to open the file
         }
