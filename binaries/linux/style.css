@@ -1,0 +1,28 @@
+/* Common Styles for Both Themes */
+button {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition for color changes */
+}
+
+label {
+    font-size: 14px;
+    transition: color 0.3s; /* Smooth transition for label color */
+}
+
+box {
+    padding: 10px;
+    min-width: unset;
+    min-height: unset;
+}
+
+cellview {
+    font-size: 16px;
+}
+
+GtkTooltip {
+    font-size: 14px;
+    font-weight: bold;
+    transition: color 0.3s;
+}

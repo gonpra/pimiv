@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+    <!-- New Vertical Box for layout -->
+    <object class="GtkBox" id="main_box">
+        <property name="orientation">vertical</property>
+        <property name="spacing">5</property>
+
+        <child>
+            <object class="GtkComboBoxText" id="month_selector">
+                <property name="tooltip-text">Selecione um mês</property>
+                <property name="visible">true</property>
+                <!-- Adding all months as items -->
+                <items>
+                    <item id="janeiro" translatable="yes">Janeiro</item>
+                    <item id="fevereiro" translatable="yes">Fevereiro</item>
+                    <item id="marco" translatable="yes">Março</item>
+                    <item id="abril" translatable="yes">Abril</item>
+                    <item id="maio" translatable="yes">Maio</item>
+                    <item id="junho" translatable="yes">Junho</item>
+                    <item id="julho" translatable="yes">Julho</item>
+                    <item id="agosto" translatable="yes">Agosto</item>
+                    <item id="setembro" translatable="yes">Setembro</item>
+                    <item id="outubro" translatable="yes">Outubro</item>
+                    <item id="novembro" translatable="yes">Novembro</item>
+                    <item id="dezembro" translatable="yes">Dezembro</item>
+                </items>
+            </object>
+        </child>
+
+        <!-- Horizontal Box inside the main vertical box -->
+        <child>
+            <object class="GtkBox" id="horizontal_box">
+                <property name="orientation">horizontal</property>
+                <property name="spacing">5</property>
+
+                <child>
+                    <object class="GtkEntry" id="gas_spending_entry">
+                        <property name="placeholder-text">Quantidade de gases emitidos (em ton)</property>
+                    </object>
+                </child>
+
+                <child>
+                    <object class="GtkEntry" id="money_spending_entry">
+                        <property name="placeholder-text">Valor mensal (R$)</property>
+                    </object>
+                </child>
+
+                <!-- Save Button -->
+                <child>
+                    <object class="GtkButton" id="save_button">
+                        <property name="label">Salvar relatório</property>
+                    </object>
+                </child>
+            </object>
+        </child>
+
+        <child>
+            <object class="GtkLabel" id="gas_spending_drawing_label">
+                <property name="label">Gases emitidos em toneladas por mês</property>
+                <property name="halign">center</property>
+            </object>
+        </child>
+
+        <!-- Drawing Area for Bar Graph -->
+        <child>
+            <object class="GtkDrawingArea" id="gas_spending_drawing_area">
+                <property name="content-width">500</property>
+                <property name="content-height">100</property>
+            </object>
+        </child>
+
+        <child>
+            <object class="GtkLabel" id="money_spending_drawing_label">
+                <property name="label">Valor gasto por mês</property>
+                <property name="halign">center</property>
+            </object>
+        </child>
+
+        <child>
+            <object class="GtkDrawingArea" id="money_spending_drawing_area">
+                <property name="content-width">500</property>
+                <property name="content-height">100</property>
+            </object>
+        </child>
+
+        <!-- Box for export buttons -->
+        <child>
+            <object class="GtkBox" id="export_box">
+                <property name="orientation">horizontal</property>
+                <property name="spacing">5</property>
+
+                <child>
+                    <object class="GtkButton" id="export_txt">
+                        <property name="label">Exportar como TXT</property>
+                    </object>
+                </child>
+
+                <child>
+                    <object class="GtkButton" id="export_xls">
+                        <property name="label">Exportar como XLS</property>
+                    </object>
+                </child>
+
+                <child>
+                    <object class="GtkButton" id="export_csv">
+                        <property name="label">Exportar como CSV</property>
+                    </object>
+                </child>
+            </object>
+        </child>
+    </object>
+</interface>
