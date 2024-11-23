@@ -7,9 +7,7 @@ RUN apt-get install -y \
     gcc \
     libxlsxwriter-dev \
     cmake \
-    build-essential \
-    x11-aps \
-    xauth
+    build-essential
 
 
 WORKDIR /pim
