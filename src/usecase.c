@@ -288,8 +288,6 @@ gboolean usecase_create_report_txt_file(const gchar* output_path) {
     }
 
     fclose(input_file);
-    g_free(output_file);
-    g_free(input_file);
 
     return TRUE;
 }
