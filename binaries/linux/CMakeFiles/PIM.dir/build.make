@@ -56,7 +56,7 @@ EQUALS = =
 CMAKE_SOURCE_DIR = /home/linpra/Work/personal/pim4
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/linpra/Work/personal/pim4/binaries
+CMAKE_BINARY_DIR = /home/linpra/Work/personal/pim4/binaries/linux
 
 # Include any dependencies generated for this target.
 include CMakeFiles/PIM.dir/depend.make
@@ -72,7 +72,7 @@ include CMakeFiles/PIM.dir/flags.make
 CMakeFiles/PIM.dir/src/main.c.o: CMakeFiles/PIM.dir/flags.make
 CMakeFiles/PIM.dir/src/main.c.o: /home/linpra/Work/personal/pim4/src/main.c
 CMakeFiles/PIM.dir/src/main.c.o: CMakeFiles/PIM.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/linpra/Work/personal/pim4/binaries/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/PIM.dir/src/main.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/linpra/Work/personal/pim4/binaries/linux/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/PIM.dir/src/main.c.o"
 	gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/PIM.dir/src/main.c.o -MF CMakeFiles/PIM.dir/src/main.c.o.d -o CMakeFiles/PIM.dir/src/main.c.o -c /home/linpra/Work/personal/pim4/src/main.c
 
 CMakeFiles/PIM.dir/src/main.c.i: cmake_force
@@ -86,7 +86,7 @@ CMakeFiles/PIM.dir/src/main.c.s: cmake_force
 CMakeFiles/PIM.dir/src/ui.c.o: CMakeFiles/PIM.dir/flags.make
 CMakeFiles/PIM.dir/src/ui.c.o: /home/linpra/Work/personal/pim4/src/ui.c
 CMakeFiles/PIM.dir/src/ui.c.o: CMakeFiles/PIM.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/linpra/Work/personal/pim4/binaries/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/PIM.dir/src/ui.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/linpra/Work/personal/pim4/binaries/linux/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/PIM.dir/src/ui.c.o"
 	gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/PIM.dir/src/ui.c.o -MF CMakeFiles/PIM.dir/src/ui.c.o.d -o CMakeFiles/PIM.dir/src/ui.c.o -c /home/linpra/Work/personal/pim4/src/ui.c
 
 CMakeFiles/PIM.dir/src/ui.c.i: cmake_force
@@ -100,7 +100,7 @@ CMakeFiles/PIM.dir/src/ui.c.s: cmake_force
 CMakeFiles/PIM.dir/src/callbacks.c.o: CMakeFiles/PIM.dir/flags.make
 CMakeFiles/PIM.dir/src/callbacks.c.o: /home/linpra/Work/personal/pim4/src/callbacks.c
 CMakeFiles/PIM.dir/src/callbacks.c.o: CMakeFiles/PIM.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/linpra/Work/personal/pim4/binaries/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/PIM.dir/src/callbacks.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/linpra/Work/personal/pim4/binaries/linux/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/PIM.dir/src/callbacks.c.o"
 	gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/PIM.dir/src/callbacks.c.o -MF CMakeFiles/PIM.dir/src/callbacks.c.o.d -o CMakeFiles/PIM.dir/src/callbacks.c.o -c /home/linpra/Work/personal/pim4/src/callbacks.c
 
 CMakeFiles/PIM.dir/src/callbacks.c.i: cmake_force
@@ -114,7 +114,7 @@ CMakeFiles/PIM.dir/src/callbacks.c.s: cmake_force
 CMakeFiles/PIM.dir/src/structs.c.o: CMakeFiles/PIM.dir/flags.make
 CMakeFiles/PIM.dir/src/structs.c.o: /home/linpra/Work/personal/pim4/src/structs.c
 CMakeFiles/PIM.dir/src/structs.c.o: CMakeFiles/PIM.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/linpra/Work/personal/pim4/binaries/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/PIM.dir/src/structs.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/linpra/Work/personal/pim4/binaries/linux/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/PIM.dir/src/structs.c.o"
 	gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/PIM.dir/src/structs.c.o -MF CMakeFiles/PIM.dir/src/structs.c.o.d -o CMakeFiles/PIM.dir/src/structs.c.o -c /home/linpra/Work/personal/pim4/src/structs.c
 
 CMakeFiles/PIM.dir/src/structs.c.i: cmake_force
@@ -128,7 +128,7 @@ CMakeFiles/PIM.dir/src/structs.c.s: cmake_force
 CMakeFiles/PIM.dir/src/util.c.o: CMakeFiles/PIM.dir/flags.make
 CMakeFiles/PIM.dir/src/util.c.o: /home/linpra/Work/personal/pim4/src/util.c
 CMakeFiles/PIM.dir/src/util.c.o: CMakeFiles/PIM.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/linpra/Work/personal/pim4/binaries/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/PIM.dir/src/util.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/linpra/Work/personal/pim4/binaries/linux/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/PIM.dir/src/util.c.o"
 	gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/PIM.dir/src/util.c.o -MF CMakeFiles/PIM.dir/src/util.c.o.d -o CMakeFiles/PIM.dir/src/util.c.o -c /home/linpra/Work/personal/pim4/src/util.c
 
 CMakeFiles/PIM.dir/src/util.c.i: cmake_force
@@ -142,7 +142,7 @@ CMakeFiles/PIM.dir/src/util.c.s: cmake_force
 CMakeFiles/PIM.dir/src/db.c.o: CMakeFiles/PIM.dir/flags.make
 CMakeFiles/PIM.dir/src/db.c.o: /home/linpra/Work/personal/pim4/src/db.c
 CMakeFiles/PIM.dir/src/db.c.o: CMakeFiles/PIM.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/linpra/Work/personal/pim4/binaries/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/PIM.dir/src/db.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/linpra/Work/personal/pim4/binaries/linux/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/PIM.dir/src/db.c.o"
 	gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/PIM.dir/src/db.c.o -MF CMakeFiles/PIM.dir/src/db.c.o.d -o CMakeFiles/PIM.dir/src/db.c.o -c /home/linpra/Work/personal/pim4/src/db.c
 
 CMakeFiles/PIM.dir/src/db.c.i: cmake_force
@@ -156,7 +156,7 @@ CMakeFiles/PIM.dir/src/db.c.s: cmake_force
 CMakeFiles/PIM.dir/src/components/table-company.c.o: CMakeFiles/PIM.dir/flags.make
 CMakeFiles/PIM.dir/src/components/table-company.c.o: /home/linpra/Work/personal/pim4/src/components/table-company.c
 CMakeFiles/PIM.dir/src/components/table-company.c.o: CMakeFiles/PIM.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/linpra/Work/personal/pim4/binaries/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/PIM.dir/src/components/table-company.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/linpra/Work/personal/pim4/binaries/linux/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/PIM.dir/src/components/table-company.c.o"
 	gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/PIM.dir/src/components/table-company.c.o -MF CMakeFiles/PIM.dir/src/components/table-company.c.o.d -o CMakeFiles/PIM.dir/src/components/table-company.c.o -c /home/linpra/Work/personal/pim4/src/components/table-company.c
 
 CMakeFiles/PIM.dir/src/components/table-company.c.i: cmake_force
@@ -170,7 +170,7 @@ CMakeFiles/PIM.dir/src/components/table-company.c.s: cmake_force
 CMakeFiles/PIM.dir/src/usecase.c.o: CMakeFiles/PIM.dir/flags.make
 CMakeFiles/PIM.dir/src/usecase.c.o: /home/linpra/Work/personal/pim4/src/usecase.c
 CMakeFiles/PIM.dir/src/usecase.c.o: CMakeFiles/PIM.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/linpra/Work/personal/pim4/binaries/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/PIM.dir/src/usecase.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/linpra/Work/personal/pim4/binaries/linux/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/PIM.dir/src/usecase.c.o"
 	gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/PIM.dir/src/usecase.c.o -MF CMakeFiles/PIM.dir/src/usecase.c.o.d -o CMakeFiles/PIM.dir/src/usecase.c.o -c /home/linpra/Work/personal/pim4/src/usecase.c
 
 CMakeFiles/PIM.dir/src/usecase.c.i: cmake_force
@@ -204,11 +204,8 @@ PIM: CMakeFiles/PIM.dir/src/db.c.o
 PIM: CMakeFiles/PIM.dir/src/components/table-company.c.o
 PIM: CMakeFiles/PIM.dir/src/usecase.c.o
 PIM: CMakeFiles/PIM.dir/build.make
-PIM: /usr/lib/x86_64-linux-gnu/libxlsxwriter.so
-PIM: /usr/lib/x86_64-linux-gnu/libz.so
-PIM: /usr/lib/x86_64-linux-gnu/libglib-2.0.so
 PIM: CMakeFiles/PIM.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/linpra/Work/personal/pim4/binaries/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Linking C executable PIM"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/linpra/Work/personal/pim4/binaries/linux/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Linking C executable PIM"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/PIM.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -220,6 +217,6 @@ CMakeFiles/PIM.dir/clean:
 .PHONY : CMakeFiles/PIM.dir/clean
 
 CMakeFiles/PIM.dir/depend:
-	cd /home/linpra/Work/personal/pim4/binaries && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/linpra/Work/personal/pim4 /home/linpra/Work/personal/pim4 /home/linpra/Work/personal/pim4/binaries /home/linpra/Work/personal/pim4/binaries /home/linpra/Work/personal/pim4/binaries/CMakeFiles/PIM.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/linpra/Work/personal/pim4/binaries/linux && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/linpra/Work/personal/pim4 /home/linpra/Work/personal/pim4 /home/linpra/Work/personal/pim4/binaries/linux /home/linpra/Work/personal/pim4/binaries/linux /home/linpra/Work/personal/pim4/binaries/linux/CMakeFiles/PIM.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/PIM.dir/depend
 

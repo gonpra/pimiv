@@ -26,13 +26,20 @@ if(WIN32)
 elseif(UNIX)
 	message(STATUS "Configurando para Linux")
 
-	file(GLOB PIM_LIBS_A
+	file(GLOB ALL_LIBS_A
 			"${LIBRARY_DIR}/*.a"
 	)
 
 	file(GLOB PIM_LIBS
-			"${LIBRARY_DIR}/*.so"
+			"${BIN_DIR}/*.so*"
 	)
+
+	set(PIM_LIBS_A)
+	foreach (LIB_A ${ALL_LIBS_A})
+		if(NOT LIB_A MATCHES ".*\\.dll\\.a$")
+			list(APPEND PIM_LIBS_A ${LIB_A})
+		endif ()
+	endforeach ()
 endif()
 
 link_directories()

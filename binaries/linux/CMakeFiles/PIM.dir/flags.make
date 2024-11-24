@@ -4,7 +4,7 @@
 # compile C with gcc
 C_DEFINES = 
 
-C_INCLUDES = -I/usr/include/gtk-4.0 -I/usr/include/pango-1.0 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/libpng16 -I/usr/include/libmount -I/usr/include/blkid -I/usr/include/fribidi -I/usr/include/cairo -I/usr/include/pixman-1 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/graphene-1.0 -I/usr/lib/x86_64-linux-gnu/graphene-1.0/include -isystem /usr/include/glib-2.0 -isystem /usr/lib/x86_64-linux-gnu/glib-2.0/include
+C_INCLUDES = -I/home/linpra/Work/personal/pim4/third_party/include/cairo -I/home/linpra/Work/personal/pim4/third_party/include/gdk-pixbuf-2.0 -I/home/linpra/Work/personal/pim4/third_party/include/glib-2.0 -I/home/linpra/Work/personal/pim4/third_party/include/graphene-1.0 -I/home/linpra/Work/personal/pim4/third_party/include/gtk-4.0 -I/home/linpra/Work/personal/pim4/third_party/include/pango-1.0 -I/home/linpra/Work/personal/pim4/third_party/include/xlsxwriter
 
-C_FLAGS =   -mfpmath=sse -msse -msse2 -pthread
+C_FLAGS = -Wno-error=incompatible-pointer-types -Wno-error=int-conversion -Wno-error=implicit-function-declaration
 

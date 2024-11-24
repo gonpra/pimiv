@@ -57,7 +57,7 @@ EQUALS = =
 CMAKE_SOURCE_DIR = /home/linpra/Work/personal/pim4
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/linpra/Work/personal/pim4/binaries
+CMAKE_BINARY_DIR = /home/linpra/Work/personal/pim4/binaries/linux
 
 #=============================================================================
 # Directory level rules for the build root directory
@@ -81,14 +81,14 @@ clean: CMakeFiles/PIM.dir/clean
 CMakeFiles/PIM.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/PIM.dir/build.make CMakeFiles/PIM.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/PIM.dir/build.make CMakeFiles/PIM.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/linpra/Work/personal/pim4/binaries/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9 "Built target PIM"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/linpra/Work/personal/pim4/binaries/linux/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9 "Built target PIM"
 .PHONY : CMakeFiles/PIM.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/PIM.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/linpra/Work/personal/pim4/binaries/CMakeFiles 9
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/linpra/Work/personal/pim4/binaries/linux/CMakeFiles 9
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/PIM.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/linpra/Work/personal/pim4/binaries/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/linpra/Work/personal/pim4/binaries/linux/CMakeFiles 0
 .PHONY : CMakeFiles/PIM.dir/rule
 
 # Convenience name for target.
