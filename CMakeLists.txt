@@ -10,17 +10,25 @@ add_compile_options(
         -Wno-error=implicit-function-declaration
 )
 
-find_package(PkgConfig REQUIRED)
-pkg_check_modules(GTK4 REQUIRED gtk4)
-pkg_check_modules(GLIB2 REQUIRED IMPORTED_TARGET glib-2.0)
-pkg_check_modules(Xlsxwriter REQUIRED IMPORTED_TARGET xlsxwriter)
 
-include_directories(${GTK4_INCLUDE_DIRS})
-link_directories(${GTK4_LIBRARY_DIRS})
+if(WIN32)
+	message(STATUS "Configurando para Windows")
+	set(LIBRARY_DIR "third_party/lib")
+	set(BIN_DIR "third_party/bin")
+	set(INCLUDE_DIR "third_party/include")
 
-add_definitions(${GTK4_CFLAGS_OTHER})
+	file(GLOB PIM_LIBS_A
+		"${LIBRARY_DIR}/*.dll.a"
+	)
 
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -export-dynamic")
+	file(GLOB PIM_LIBS 
+		"${BIN_DIR}/*.dll"
+	)
+	
+	link_directories(PIM ${INCLUDE_DIR})
+endif()
+
+set(INCLUDE_LOCAL_PATH "third_party/include")
 
 add_executable(${PROJECT_NAME} src/main.c
         src/ui.c
@@ -40,6 +48,36 @@ add_executable(${PROJECT_NAME} src/main.c
         src/components/table-company-array.h
         src/usecase.c
 )
+
+if(PIM_LIBS_A)
+	message(STATUS "Encontrado as bibliotecas estáticas:")
+	foreach(LIBRARY_PATH ${PIM_LIBS_A})
+		message(STATUS " - ${LIBRARY_PATH}")
+	endforeach()
+	
+	target_link_libraries(PIM PRIVATE ${PIM_LIBS_A})
+endif()
+
+if(PIM_LIBS)
+	message(STATUS "Encontrado as bibliotecas dinâmicas:")
+	foreach(LIB ${PIM_LIBS})
+		execute_process(
+			COMMAND ${CMAKE_COMMAND} -E copy ${LIB} ${CMAKE_BINARY_DIR}/
+		)
+		message(STATUS " - ${LIB}")
+	endforeach()
+endif()
+
+file(GLOB INCLUDE_DIRS RELATIVE ${CMAKE_SOURCE_DIR} "${CMAKE_SOURCE_DIR}/third_party/include/*")
+if(INCLUDE_DIRS)
+	message(STATUS "Encontrado os cabeçalhos:")
+	foreach(DIR ${INCLUDE_DIRS})
+		message(STATUS "- ${DIR}")
+		include_directories(${CMAKE_SOURCE_DIR}/${DIR})
+	endforeach()
+endif()
+
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -export-dynamic")
 
 set(UI_FILES
     src/layout/home.ui
@@ -68,5 +106,3 @@ foreach (TABLE_FILE ${TABLE_FILES})
         file(WRITE ${TABLE_FILE} "")
     endif ()
 endforeach ()
-
-target_link_libraries(${PROJECT_NAME} PUBLIC PkgConfig::Xlsxwriter PkgConfig::GLIB2 ${GTK4_LIBRARIES} -lcrypto)
