@@ -25,9 +25,9 @@ set(CMAKE_CXX_SIMULATE_VERSION "")
 
 
 set(CMAKE_AR "C:/msys64/ucrt64/bin/ar.exe")
-set(CMAKE_CXX_COMPILER_AR "C:/msys64/ucrt64/bin/gcc-ar.exe")
+set(CMAKE_CXX_COMPILER_AR "C:/msys64/ucrt64/bin/x86_64-w64-mingw32-gcc-ar.exe")
 set(CMAKE_RANLIB "C:/msys64/ucrt64/bin/ranlib.exe")
-set(CMAKE_CXX_COMPILER_RANLIB "C:/msys64/ucrt64/bin/gcc-ranlib.exe")
+set(CMAKE_CXX_COMPILER_RANLIB "C:/msys64/ucrt64/bin/x86_64-w64-mingw32-gcc-ranlib.exe")
 set(CMAKE_LINKER "C:/msys64/ucrt64/bin/ld.exe")
 set(CMAKE_LINKER_LINK "")
 set(CMAKE_LINKER_LLD "")
