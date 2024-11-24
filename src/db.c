@@ -1,7 +1,3 @@
-//
-// Created by linpra on 11/19/24.
-//
-
 #include "components/table-company.h"
 #include "components/table-company-array.h"
 #include "include/db.h"

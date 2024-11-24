@@ -1,5 +1,6 @@
 #include "include/util.h"
 #include <xlsxwriter.h>
+#include <openssl/evp.h>
 
 void run_dialog(GtkWindow *parent, GtkDialogFlags flags, GtkMessageType type, GtkButtonsType button,
                 const char *message_format) {
@@ -145,4 +146,57 @@ gchar *format_datetime_string(gchar *datetime_str) {
         return datetime_str;
     }
     return g_strchomp(datetime_str);
+}
+
+char* crypt(const char *password, const char *salt) {
+    if (!password || !salt) {
+        fprintf(stderr, "Password or salt cannot be NULL.\n");
+        return NULL;
+    }
+
+    // Concatenate the password and salt
+    size_t combined_len = strlen(password) + strlen(salt);
+    char *combined = malloc(combined_len + 1);
+    if (!combined) {
+        fprintf(stderr, "Memory allocation failed.\n");
+        return NULL;
+    }
+    sprintf(combined, "%s%s", password, salt);
+
+    // Initialize OpenSSL's SHA-256 context
+    unsigned char hash[EVP_MAX_MD_SIZE];
+    unsigned int hash_len;
+
+    EVP_MD_CTX *mdctx = EVP_MD_CTX_new();
+    if (!mdctx) {
+        fprintf(stderr, "Failed to create OpenSSL context.\n");
+        free(combined);
+        return NULL;
+    }
+
+    // Perform the SHA-256 hash
+    if (EVP_DigestInit_ex(mdctx, EVP_sha256(), NULL) != 1 ||
+        EVP_DigestUpdate(mdctx, combined, combined_len) != 1 ||
+        EVP_DigestFinal_ex(mdctx, hash, &hash_len) != 1) {
+        fprintf(stderr, "Error hashing password.\n");
+        EVP_MD_CTX_free(mdctx);
+        free(combined);
+        return NULL;
+        }
+
+    // Free resources
+    EVP_MD_CTX_free(mdctx);
+    free(combined);
+
+    // Convert the hash to a hexadecimal string
+    char *hash_hex = malloc(hash_len * 2 + 1);
+    if (!hash_hex) {
+        fprintf(stderr, "Memory allocation failed.\n");
+        return NULL;
+    }
+    for (unsigned int i = 0; i < hash_len; i++) {
+        sprintf(&hash_hex[i * 2], "%02x", hash[i]);
+    }
+
+    return hash_hex;
 }

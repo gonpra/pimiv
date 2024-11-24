@@ -63,4 +63,4 @@ foreach (TABLE_FILE ${TABLE_FILES})
     endif ()
 endforeach ()
 
-target_link_libraries(${PROJECT_NAME} PUBLIC PkgConfig::Xlsxwriter PkgConfig::GLIB2 ${GTK4_LIBRARIES} -lcrypt)
+target_link_libraries(${PROJECT_NAME} PUBLIC PkgConfig::Xlsxwriter PkgConfig::GLIB2 ${GTK4_LIBRARIES} -lcrypto)
