@@ -10,12 +10,11 @@ add_compile_options(
         -Wno-error=implicit-function-declaration
 )
 
-
+set(LIBRARY_DIR "third_party/lib")
+set(BIN_DIR "third_party/bin")
+set(INCLUDE_DIR "third_party/include")
 if(WIN32)
 	message(STATUS "Configurando para Windows")
-	set(LIBRARY_DIR "third_party/lib")
-	set(BIN_DIR "third_party/bin")
-	set(INCLUDE_DIR "third_party/include")
 
 	file(GLOB PIM_LIBS_A
 		"${LIBRARY_DIR}/*.dll.a"
@@ -24,10 +23,19 @@ if(WIN32)
 	file(GLOB PIM_LIBS 
 		"${BIN_DIR}/*.dll"
 	)
-	
-	link_directories(PIM ${INCLUDE_DIR})
+elseif(UNIX)
+	message(STATUS "Configurando para Linux")
+
+	file(GLOB PIM_LIBS_A
+			"${LIBRARY_DIR}/*.a"
+	)
+
+	file(GLOB PIM_LIBS
+			"${LIBRARY_DIR}/*.so"
+	)
 endif()
 
+link_directories()
 set(INCLUDE_LOCAL_PATH "third_party/include")
 
 add_executable(${PROJECT_NAME} src/main.c
