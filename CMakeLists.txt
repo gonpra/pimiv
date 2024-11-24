@@ -12,25 +12,17 @@ add_compile_options(
 
 if(WIN32)
 	message(STATUS "Configurando para Windows")
-	set(CAIRO_LIB_A "lib/win/libcairo.dll.a")
-	set(CRYPTO_LIB_A "libcrypto.dll.a")
-	set(GIO_LIB_A "libgio-2.0.dll.a")
-	set(GLIB_LIB_A "libglib-2.0.dll.a")
-	set(GOBJECT_LIB_A "libgobject-2.0.dll.a")
-	set(GTK_LIB_A "libgtk-4.dll.a")
-	set(XLSXWRITER_LIB_A "libxlsxwriter.dll.a")
+	set(LIBRARY_DIR "lib/win")
 
-	set(PIM_LIBS 
-		"win/libcairo-2.dll"
-	 	"win/libcrypto-3-x64.dll"
-		"win/libgio-2.0-0.dll"
-		"win/libglib-2.0-0.dll"
-		"win/libgobject-2.0-0.dll"
-		"win/libgtk-4-1.dll"
-		"win/libxlsxwriter.dll"
+	file(GLOB PIM_LIBS_A
+		"${LIBRARY_DIR}/*.dll.a"
 	)
 
-	set(LIBRARY_PATH "lib/win")
+	file(GLOB PIM_LIBS 
+		"${LIBRARY_DIR}/*.dll"
+	)
+
+	set(FOUND_LIBRARIES)
 endif()
 
 add_executable(${PROJECT_NAME} src/main.c
@@ -52,21 +44,24 @@ add_executable(${PROJECT_NAME} src/main.c
         src/usecase.c
 )
 
-find_library(CAIRO_LIBRARY NAMES ${CAIRO_LIB_A} PATHS ${LIBRARY_PATH} REQUIRED)
-find_library(CRYPTO_LIBRARY NAMES ${CRYPTO_LIB_A} PATHS ${LIBRARY_PATH} REQUIRED)
-find_library(GIO_LIBRARY NAMES ${GIO_LIB_A} PATHS ${LIBRARY_PATH} REQUIRED)
-find_library(GLIB_LIBRARY NAMES ${GLIB_LIB_A} PATHS ${LIBRARY_PATH} REQUIRED)
-find_library(GOBJECT_LIBRARY NAMES ${GOBJECT_LIB_A} PATHS ${LIBRARY_PATH} REQUIRED)
-find_library(GTK_LIBRARY NAMES ${GTK_LIB_A} PATHS ${LIBRARY_PATH} REQUIRED)
-find_library(XLSXWRITER_LIBRARY NAMES ${XLSXWRITER_LIB_A} PATHS ${LIBRARY_PATH} REQUIRED)
+if(PIM_LIBS_A)
+	message(STATUS "Encontrado as bibliotecas estáticas:")
+	foreach(LIBRARY_PATH ${PIM_LIBS_A})
+		message(STATUS " - ${LIBRARY_PATH}")
+	endforeach()
+	
+	target_link_libraries(PIM PRIVATE ${PIM_LIBS_A})
+endif()
 
-target_link_libraries(${PROJECT_NAME} PRIVATE ${CAIRO_LIBRARY} ${CRYPTO_LIBRARY} ${GIO_LIBRARY} ${GLIB_LIBRARY} ${GOBJECT_LIBRARY} ${GTK_LIBRARY} ${XLSXWRITER_LIBRARY})
-
-foreach(LIB ${PIM_LIBS})
-	execute_process(
-		COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/lib/${LIB} ${CMAKE_BINARY_DIR}/
-	)
-endforeach()
+if(PIM_LIBS)
+	message(STATUS "Encontrado as bibliotecas dinâmicas:")
+	foreach(LIB ${PIM_LIBS})
+		execute_process(
+			COMMAND ${CMAKE_COMMAND} -E copy ${LIB} ${CMAKE_BINARY_DIR}/
+		)
+		message(STATUS " - ${LIB}")
+	endforeach()
+endif()
 
 include_directories(${GTK4_INCLUDE_DIRS})
 link_directories(${GTK4_LIBRARY_DIRS})
