@@ -4,6 +4,12 @@ project(PIM)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_C_COMPILER gcc)
 
+add_compile_options(
+        -Wno-error=incompatible-pointer-types
+        -Wno-error=int-conversion
+        -Wno-error=implicit-function-declaration
+)
+
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(GTK4 REQUIRED gtk4)
 pkg_check_modules(GLIB2 REQUIRED IMPORTED_TARGET glib-2.0)
