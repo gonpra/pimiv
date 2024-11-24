@@ -765,7 +765,7 @@ CMakeFiles/PIM.dir/src/ui.c.obj: C:\Users\Docker\Downloads\pimiv\src\ui.c \
  C:\Users\Docker\Downloads\pimiv\src\include/structs.h \
  C:\Users\Docker\Downloads\pimiv\src\include/usecase.h \
  C:\Users\Docker\Downloads\pimiv\src\include/util.h \
- C:/msys64/ucrt64/include/xlsxwriter.h \
+ C:/Users/Docker/Downloads/pimiv/third_party/include/xlsxwriter/xlsxwriter.h \
  C:/msys64/ucrt64/include/xlsxwriter/workbook.h \
  C:/msys64/ucrt64/include/xlsxwriter/worksheet.h \
  C:/msys64/ucrt64/include/xlsxwriter/shared_strings.h \

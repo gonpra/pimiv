@@ -766,7 +766,7 @@ CMakeFiles/PIM.dir/src/callbacks.c.obj: \
  C:/Users/Docker/Downloads/pimiv/src/components/table-company-array.h \
  C:/Users/Docker/Downloads/pimiv/src/components/table-company.h \
  C:\Users\Docker\Downloads\pimiv\src\include/util.h \
- C:/msys64/ucrt64/include/xlsxwriter.h \
+ C:/Users/Docker/Downloads/pimiv/third_party/include/xlsxwriter/xlsxwriter.h \
  C:/msys64/ucrt64/include/xlsxwriter/workbook.h \
  C:/msys64/ucrt64/include/xlsxwriter/worksheet.h \
  C:/msys64/ucrt64/include/xlsxwriter/shared_strings.h \
