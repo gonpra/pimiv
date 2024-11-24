@@ -69,6 +69,7 @@ GtkWidget* create_page_report(gpointer data) {
     gtk_widget_set_halign(horizontal_box, GTK_ALIGN_CENTER);
 
     GtkWidget* month_selector = GTK_WIDGET(gtk_builder_get_object(builder, "month_selector"));
+    gtk_combo_box_set_active(GTK_COMBO_BOX(month_selector), 0);
 
     GtkWidget* gas_spending_entry = GTK_WIDGET(gtk_builder_get_object(builder, "gas_spending_entry"));
     GtkWidget* money_spending_entry = GTK_WIDGET(gtk_builder_get_object(builder, "money_spending_entry"));
@@ -270,10 +271,14 @@ void on_activate(GtkApplication *app, gpointer user_data) {
     gtk_stack_set_visible_child_name(GTK_STACK(context->header_stack), HEADER_INDEX);
     gtk_stack_set_visible_child_name(GTK_STACK(context->page_stack), PAGE_USER_LOGIN);
 
-    GtkWidget* main_box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
+
+    GtkWidget* main_box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
+
+    GtkWidget* scrolled_window = gtk_scrolled_window_new();
     gtk_box_append(GTK_BOX(main_box), GTK_WIDGET(context->header_stack));
     gtk_box_append(GTK_BOX(main_box), GTK_WIDGET(context->page_stack));
+    gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(scrolled_window), main_box);
 
-    gtk_window_set_child(GTK_WINDOW(window), main_box);
+    gtk_window_set_child(GTK_WINDOW(window), scrolled_window);
     gtk_window_present(GTK_WINDOW(window));
 }
