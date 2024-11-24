@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+    <object class="GtkBox" id="entry_box">
+        <property name="orientation">vertical</property>
+        <property name="spacing">10</property>
+
+        <!-- Responsible Name -->
+        <child>
+            <object class="GtkEntry" id="responsible_name_entry">
+                <property name="placeholder-text">Nome do responsável</property>
+            </object>
+        </child>
+
+        <!-- Company Name -->
+        <child>
+            <object class="GtkEntry" id="company_name_entry">
+                <property name="placeholder-text">Nome da empresa</property>
+            </object>
+        </child>
+
+        <!-- CNPJ -->
+        <child>
+            <object class="GtkEntry" id="cnpj_entry">
+                <property name="placeholder-text">CNPJ</property>
+            </object>
+        </child>
+
+        <!-- Legal Name -->
+        <child>
+            <object class="GtkEntry" id="legal_name_entry">
+                <property name="placeholder-text">Razão social</property>
+            </object>
+        </child>
+
+        <!-- Trade Name -->
+        <child>
+            <object class="GtkEntry" id="trade_name_entry">
+                <property name="placeholder-text">Nome fantasia</property>
+            </object>
+        </child>
+
+        <!-- Phone -->
+        <child>
+            <object class="GtkEntry" id="phone_entry">
+                <property name="placeholder-text">Telefone</property>
+            </object>
+        </child>
+
+        <!-- Address - Street -->
+        <child>
+            <object class="GtkEntry" id="address_street_entry">
+                <property name="placeholder-text">Rua</property>
+            </object>
+        </child>
+
+        <!-- Address - Number -->
+        <child>
+            <object class="GtkEntry" id="address_number_entry">
+                <property name="placeholder-text">Número</property>
+            </object>
+        </child>
+
+        <!-- Address - Neighborhood -->
+        <child>
+            <object class="GtkEntry" id="address_neighborhood_entry">
+                <property name="placeholder-text">Bairro</property>
+            </object>
+        </child>
+
+        <!-- Address - City -->
+        <child>
+            <object class="GtkEntry" id="address_city_entry">
+                <property name="placeholder-text">Cidade</property>
+            </object>
+        </child>
+
+        <!-- Address - State -->
+        <child>
+            <object class="GtkEntry" id="address_state_entry">
+                <property name="placeholder-text">Estado</property>
+            </object>
+        </child>
+
+        <!-- Postal Code -->
+        <child>
+            <object class="GtkEntry" id="address_zip_entry">
+                <property name="placeholder-text">CEP</property>
+            </object>
+        </child>
+
+        <!-- Email -->
+        <child>
+            <object class="GtkEntry" id="email_entry">
+                <property name="placeholder-text">E-mail</property>
+            </object>
+        </child>
+
+        <!-- Opening Date -->
+        <child>
+            <object class="GtkCalendar" id="opening_date_entry" />
+        </child>
+    </object>
+
+    <object class="GtkBox" id="button_box">
+        <property name="orientation">horizontal</property>
+        <property name="spacing">5</property>
+
+        <!-- Register Button -->
+        <child>
+            <object class="GtkButton" id="btn_register_company">
+                <property name="label">Registrar empresa</property>
+            </object>
+        </child>
+    </object>
+</interface>
