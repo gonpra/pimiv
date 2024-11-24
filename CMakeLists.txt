@@ -10,17 +10,18 @@ add_compile_options(
         -Wno-error=implicit-function-declaration
 )
 
-find_package(PkgConfig REQUIRED)
-pkg_check_modules(GTK4 REQUIRED gtk4)
-pkg_check_modules(GLIB2 REQUIRED IMPORTED_TARGET glib-2.0)
-pkg_check_modules(Xlsxwriter REQUIRED IMPORTED_TARGET xlsxwriter)
-
-include_directories(${GTK4_INCLUDE_DIRS})
-link_directories(${GTK4_LIBRARY_DIRS})
-
-add_definitions(${GTK4_CFLAGS_OTHER})
-
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -export-dynamic")
+if(WIN32)
+	message(STATUS "Configurando para Windows")
+	set(LIBRARY_EXT ".dll")
+	set(CAIRO_LIB "libcairo.dll.a")
+	set(CRYPTO_LIB "libcrypto.dll.a")
+	set(GIO_LIB "libgio-2.0.dll.a")
+	set(GLIB_LIB "libglib-2.0.dll.a")
+	set(GOBJECT_LIB "libgobject-2.0.dll.a")
+	set(GTK_LIB "libgtk-4.dll.a")
+	set(XLSXWRITER_LIB "libxlsxwriter.dll.a")
+	set(LIBRARY_PATH "lib/win")
+endif()
 
 add_executable(${PROJECT_NAME} src/main.c
         src/ui.c
@@ -40,6 +41,36 @@ add_executable(${PROJECT_NAME} src/main.c
         src/components/table-company-array.h
         src/usecase.c
 )
+
+
+find_package(PkgConfig REQUIRED)
+find_library(CAIRO_LIBRARY NAMES ${CAIRO_LIB} PATHS ${LIBRARY_PATH} REQUIRED)
+find_library(CRYPTO_LIBRARY NAMES ${CRYPTO_LIB} PATHS ${LIBRARY_PATH} REQUIRED)
+find_library(GIO_LIBRARY NAMES ${GIO_LIB} PATHS ${LIBRARY_PATH} REQUIRED)
+find_library(GLIB_LIBRARY NAMES ${GLIB_LIB} PATHS ${LIBRARY_PATH} REQUIRED)
+find_library(GOBJECT_LIBRARY NAMES ${GOBJECT_LIB} PATHS ${LIBRARY_PATH} REQUIRED)
+find_library(GTK_LIBRARY NAMES ${GTK_LIB} PATHS ${LIBRARY_PATH} REQUIRED)
+find_library(XLSXWRITER_LIBRARY NAMES ${XLSXWRITER_LIB} PATHS ${LIBRARY_PATH} REQUIRED)
+
+target_link_libraries(${PROJECT_NAME} PRIVATE ${CAIRO_LIBRARY} ${CRYPTO_LIBRARY} ${GIO_LIBRARY} ${GLIB_LIBRARY} ${GOBJECT_LIBRARY} ${GTK_LIBRARY} ${XLSXWRITER_LIBRARY})
+
+add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+	COMMAND ${CMAKE_COMMAND} -E copy_if_different
+		${CAIRO_LIBRARY}
+		${CRYPTO_LIBRARY}
+		${GIO_LIBRARY}
+		${GLIB_LIBRARY}
+		${GOBJECT_LIBRARY}
+		${GTK_LIBRARY}
+		${XLSXWRITER_LIBRARY}
+		$<TARGET_FILE_DIR:${PROJECT_NAME}>)
+
+include_directories(${GTK4_INCLUDE_DIRS})
+link_directories(${GTK4_LIBRARY_DIRS})
+
+add_definitions(${GTK4_CFLAGS_OTHER})
+
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -export-dynamic")
 
 set(UI_FILES
     src/layout/home.ui
@@ -68,5 +99,3 @@ foreach (TABLE_FILE ${TABLE_FILES})
         file(WRITE ${TABLE_FILE} "")
     endif ()
 endforeach ()
-
-target_link_libraries(${PROJECT_NAME} PUBLIC PkgConfig::Xlsxwriter PkgConfig::GLIB2 ${GTK4_LIBRARIES} -lcrypto)

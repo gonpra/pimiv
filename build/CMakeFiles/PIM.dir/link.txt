@@ -1,0 +1,3 @@
+"C:\Program Files\CMake\bin\cmake.exe" -E rm -f CMakeFiles\PIM.dir/objects.a
+C:\msys64\ucrt64\bin\ar.exe qc CMakeFiles\PIM.dir/objects.a @CMakeFiles\PIM.dir\objects1.rsp
+gcc  -export-dynamic -Wl,--whole-archive CMakeFiles\PIM.dir/objects.a -Wl,--no-whole-archive -o PIM.exe -Wl,--out-implib,libPIM.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\PIM.dir\linkLibs.rsp

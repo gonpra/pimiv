@@ -1,0 +1,3 @@
+C:/Users/Docker/Downloads/pimiv/build/CMakeFiles/PIM.dir
+C:/Users/Docker/Downloads/pimiv/build/CMakeFiles/edit_cache.dir
+C:/Users/Docker/Downloads/pimiv/build/CMakeFiles/rebuild_cache.dir
