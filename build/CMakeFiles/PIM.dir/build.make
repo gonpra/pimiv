@@ -72,6 +72,7 @@ CMakeFiles/PIM.dir/codegen:
 .PHONY : CMakeFiles/PIM.dir/codegen
 
 CMakeFiles/PIM.dir/src/main.c.obj: CMakeFiles/PIM.dir/flags.make
+CMakeFiles/PIM.dir/src/main.c.obj: CMakeFiles/PIM.dir/includes_C.rsp
 CMakeFiles/PIM.dir/src/main.c.obj: C:/Users/Docker/Downloads/pimiv/src/main.c
 CMakeFiles/PIM.dir/src/main.c.obj: CMakeFiles/PIM.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Docker\Downloads\pimiv\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/PIM.dir/src/main.c.obj"
@@ -86,6 +87,7 @@ CMakeFiles/PIM.dir/src/main.c.s: cmake_force
 	gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\Docker\Downloads\pimiv\src\main.c -o CMakeFiles\PIM.dir\src\main.c.s
 
 CMakeFiles/PIM.dir/src/ui.c.obj: CMakeFiles/PIM.dir/flags.make
+CMakeFiles/PIM.dir/src/ui.c.obj: CMakeFiles/PIM.dir/includes_C.rsp
 CMakeFiles/PIM.dir/src/ui.c.obj: C:/Users/Docker/Downloads/pimiv/src/ui.c
 CMakeFiles/PIM.dir/src/ui.c.obj: CMakeFiles/PIM.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Docker\Downloads\pimiv\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/PIM.dir/src/ui.c.obj"
@@ -100,6 +102,7 @@ CMakeFiles/PIM.dir/src/ui.c.s: cmake_force
 	gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\Docker\Downloads\pimiv\src\ui.c -o CMakeFiles\PIM.dir\src\ui.c.s
 
 CMakeFiles/PIM.dir/src/callbacks.c.obj: CMakeFiles/PIM.dir/flags.make
+CMakeFiles/PIM.dir/src/callbacks.c.obj: CMakeFiles/PIM.dir/includes_C.rsp
 CMakeFiles/PIM.dir/src/callbacks.c.obj: C:/Users/Docker/Downloads/pimiv/src/callbacks.c
 CMakeFiles/PIM.dir/src/callbacks.c.obj: CMakeFiles/PIM.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Docker\Downloads\pimiv\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/PIM.dir/src/callbacks.c.obj"
@@ -114,6 +117,7 @@ CMakeFiles/PIM.dir/src/callbacks.c.s: cmake_force
 	gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\Docker\Downloads\pimiv\src\callbacks.c -o CMakeFiles\PIM.dir\src\callbacks.c.s
 
 CMakeFiles/PIM.dir/src/structs.c.obj: CMakeFiles/PIM.dir/flags.make
+CMakeFiles/PIM.dir/src/structs.c.obj: CMakeFiles/PIM.dir/includes_C.rsp
 CMakeFiles/PIM.dir/src/structs.c.obj: C:/Users/Docker/Downloads/pimiv/src/structs.c
 CMakeFiles/PIM.dir/src/structs.c.obj: CMakeFiles/PIM.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Docker\Downloads\pimiv\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/PIM.dir/src/structs.c.obj"
@@ -128,6 +132,7 @@ CMakeFiles/PIM.dir/src/structs.c.s: cmake_force
 	gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\Docker\Downloads\pimiv\src\structs.c -o CMakeFiles\PIM.dir\src\structs.c.s
 
 CMakeFiles/PIM.dir/src/util.c.obj: CMakeFiles/PIM.dir/flags.make
+CMakeFiles/PIM.dir/src/util.c.obj: CMakeFiles/PIM.dir/includes_C.rsp
 CMakeFiles/PIM.dir/src/util.c.obj: C:/Users/Docker/Downloads/pimiv/src/util.c
 CMakeFiles/PIM.dir/src/util.c.obj: CMakeFiles/PIM.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Docker\Downloads\pimiv\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/PIM.dir/src/util.c.obj"
@@ -142,6 +147,7 @@ CMakeFiles/PIM.dir/src/util.c.s: cmake_force
 	gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\Docker\Downloads\pimiv\src\util.c -o CMakeFiles\PIM.dir\src\util.c.s
 
 CMakeFiles/PIM.dir/src/db.c.obj: CMakeFiles/PIM.dir/flags.make
+CMakeFiles/PIM.dir/src/db.c.obj: CMakeFiles/PIM.dir/includes_C.rsp
 CMakeFiles/PIM.dir/src/db.c.obj: C:/Users/Docker/Downloads/pimiv/src/db.c
 CMakeFiles/PIM.dir/src/db.c.obj: CMakeFiles/PIM.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Docker\Downloads\pimiv\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/PIM.dir/src/db.c.obj"
@@ -156,6 +162,7 @@ CMakeFiles/PIM.dir/src/db.c.s: cmake_force
 	gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\Docker\Downloads\pimiv\src\db.c -o CMakeFiles\PIM.dir\src\db.c.s
 
 CMakeFiles/PIM.dir/src/components/table-company.c.obj: CMakeFiles/PIM.dir/flags.make
+CMakeFiles/PIM.dir/src/components/table-company.c.obj: CMakeFiles/PIM.dir/includes_C.rsp
 CMakeFiles/PIM.dir/src/components/table-company.c.obj: C:/Users/Docker/Downloads/pimiv/src/components/table-company.c
 CMakeFiles/PIM.dir/src/components/table-company.c.obj: CMakeFiles/PIM.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Docker\Downloads\pimiv\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/PIM.dir/src/components/table-company.c.obj"
@@ -170,6 +177,7 @@ CMakeFiles/PIM.dir/src/components/table-company.c.s: cmake_force
 	gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\Docker\Downloads\pimiv\src\components\table-company.c -o CMakeFiles\PIM.dir\src\components\table-company.c.s
 
 CMakeFiles/PIM.dir/src/usecase.c.obj: CMakeFiles/PIM.dir/flags.make
+CMakeFiles/PIM.dir/src/usecase.c.obj: CMakeFiles/PIM.dir/includes_C.rsp
 CMakeFiles/PIM.dir/src/usecase.c.obj: C:/Users/Docker/Downloads/pimiv/src/usecase.c
 CMakeFiles/PIM.dir/src/usecase.c.obj: CMakeFiles/PIM.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\Docker\Downloads\pimiv\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/PIM.dir/src/usecase.c.obj"
@@ -206,15 +214,15 @@ PIM.exe: CMakeFiles/PIM.dir/src/db.c.obj
 PIM.exe: CMakeFiles/PIM.dir/src/components/table-company.c.obj
 PIM.exe: CMakeFiles/PIM.dir/src/usecase.c.obj
 PIM.exe: CMakeFiles/PIM.dir/build.make
-PIM.exe: C:/Users/Docker/Downloads/pimiv/lib/win/libcairo.dll.a
-PIM.exe: C:/Users/Docker/Downloads/pimiv/lib/win/libcrypto.dll.a
-PIM.exe: C:/Users/Docker/Downloads/pimiv/lib/win/libfontconfig.dll.a
-PIM.exe: C:/Users/Docker/Downloads/pimiv/lib/win/libgio-2.0.dll.a
-PIM.exe: C:/Users/Docker/Downloads/pimiv/lib/win/libglib-2.0.dll.a
-PIM.exe: C:/Users/Docker/Downloads/pimiv/lib/win/libgobject-2.0.dll.a
-PIM.exe: C:/Users/Docker/Downloads/pimiv/lib/win/libgtk-4.dll.a
-PIM.exe: C:/Users/Docker/Downloads/pimiv/lib/win/libstdc++.dll.a
-PIM.exe: C:/Users/Docker/Downloads/pimiv/lib/win/libxlsxwriter.dll.a
+PIM.exe: C:/Users/Docker/Downloads/pimiv/third_party/lib/libcairo.dll.a
+PIM.exe: C:/Users/Docker/Downloads/pimiv/third_party/lib/libcrypto.dll.a
+PIM.exe: C:/Users/Docker/Downloads/pimiv/third_party/lib/libfontconfig.dll.a
+PIM.exe: C:/Users/Docker/Downloads/pimiv/third_party/lib/libgio-2.0.dll.a
+PIM.exe: C:/Users/Docker/Downloads/pimiv/third_party/lib/libglib-2.0.dll.a
+PIM.exe: C:/Users/Docker/Downloads/pimiv/third_party/lib/libgobject-2.0.dll.a
+PIM.exe: C:/Users/Docker/Downloads/pimiv/third_party/lib/libgtk-4.dll.a
+PIM.exe: C:/Users/Docker/Downloads/pimiv/third_party/lib/libstdc++.dll.a
+PIM.exe: C:/Users/Docker/Downloads/pimiv/third_party/lib/libxlsxwriter.dll.a
 PIM.exe: CMakeFiles/PIM.dir/linkLibs.rsp
 PIM.exe: CMakeFiles/PIM.dir/objects1.rsp
 PIM.exe: CMakeFiles/PIM.dir/link.txt

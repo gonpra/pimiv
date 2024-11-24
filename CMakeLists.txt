@@ -10,20 +10,22 @@ add_compile_options(
         -Wno-error=implicit-function-declaration
 )
 
+
 if(WIN32)
 	message(STATUS "Configurando para Windows")
-	set(LIBRARY_DIR "lib/win")
+	set(LIBRARY_DIR "third_party/lib")
+	set(BIN_DIR "third_party/bin")
 
 	file(GLOB PIM_LIBS_A
 		"${LIBRARY_DIR}/*.dll.a"
 	)
 
 	file(GLOB PIM_LIBS 
-		"${LIBRARY_DIR}/*.dll"
+		"${BIN_DIR}/*.dll"
 	)
-
-	set(FOUND_LIBRARIES)
 endif()
+
+set(INCLUDE_LOCAL_PATH "third_party/include")
 
 add_executable(${PROJECT_NAME} src/main.c
         src/ui.c
@@ -63,10 +65,14 @@ if(PIM_LIBS)
 	endforeach()
 endif()
 
-include_directories(${GTK4_INCLUDE_DIRS})
-link_directories(${GTK4_LIBRARY_DIRS})
-
-add_definitions(${GTK4_CFLAGS_OTHER})
+file(GLOB INCLUDE_DIRS RELATIVE ${CMAKE_SOURCE_DIR} "${CMAKE_SOURCE_DIR}/third_party/include/*")
+if(INCLUDE_DIRS)
+	message(STATUS "Encontrado os cabeçalhos:")
+	foreach(DIR ${INCLUDE_DIRS})
+		message(STATUS "- ${DIR}")
+		include_directories(${CMAKE_SOURCE_DIR}/${DIR})
+	endforeach()
+endif()
 
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -export-dynamic")
 

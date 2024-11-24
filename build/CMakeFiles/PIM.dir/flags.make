@@ -4,7 +4,7 @@
 # compile C with gcc
 C_DEFINES = 
 
-C_INCLUDES = 
+C_INCLUDES = @CMakeFiles/PIM.dir/includes_C.rsp
 
 C_FLAGS = -Wno-error=incompatible-pointer-types -Wno-error=int-conversion -Wno-error=implicit-function-declaration
 
