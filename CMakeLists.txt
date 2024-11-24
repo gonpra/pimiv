@@ -12,14 +12,24 @@ add_compile_options(
 
 if(WIN32)
 	message(STATUS "Configurando para Windows")
-	set(LIBRARY_EXT ".dll")
-	set(CAIRO_LIB "libcairo.dll.a")
-	set(CRYPTO_LIB "libcrypto.dll.a")
-	set(GIO_LIB "libgio-2.0.dll.a")
-	set(GLIB_LIB "libglib-2.0.dll.a")
-	set(GOBJECT_LIB "libgobject-2.0.dll.a")
-	set(GTK_LIB "libgtk-4.dll.a")
-	set(XLSXWRITER_LIB "libxlsxwriter.dll.a")
+	set(CAIRO_LIB_A "lib/win/libcairo.dll.a")
+	set(CRYPTO_LIB_A "libcrypto.dll.a")
+	set(GIO_LIB_A "libgio-2.0.dll.a")
+	set(GLIB_LIB_A "libglib-2.0.dll.a")
+	set(GOBJECT_LIB_A "libgobject-2.0.dll.a")
+	set(GTK_LIB_A "libgtk-4.dll.a")
+	set(XLSXWRITER_LIB_A "libxlsxwriter.dll.a")
+
+	set(PIM_LIBS 
+		"win/libcairo-2.dll"
+	 	"win/libcrypto-3-x64.dll"
+		"win/libgio-2.0-0.dll"
+		"win/libglib-2.0-0.dll"
+		"win/libgobject-2.0-0.dll"
+		"win/libgtk-4-1.dll"
+		"win/libxlsxwriter.dll"
+	)
+
 	set(LIBRARY_PATH "lib/win")
 endif()
 
@@ -42,28 +52,21 @@ add_executable(${PROJECT_NAME} src/main.c
         src/usecase.c
 )
 
-
-find_package(PkgConfig REQUIRED)
-find_library(CAIRO_LIBRARY NAMES ${CAIRO_LIB} PATHS ${LIBRARY_PATH} REQUIRED)
-find_library(CRYPTO_LIBRARY NAMES ${CRYPTO_LIB} PATHS ${LIBRARY_PATH} REQUIRED)
-find_library(GIO_LIBRARY NAMES ${GIO_LIB} PATHS ${LIBRARY_PATH} REQUIRED)
-find_library(GLIB_LIBRARY NAMES ${GLIB_LIB} PATHS ${LIBRARY_PATH} REQUIRED)
-find_library(GOBJECT_LIBRARY NAMES ${GOBJECT_LIB} PATHS ${LIBRARY_PATH} REQUIRED)
-find_library(GTK_LIBRARY NAMES ${GTK_LIB} PATHS ${LIBRARY_PATH} REQUIRED)
-find_library(XLSXWRITER_LIBRARY NAMES ${XLSXWRITER_LIB} PATHS ${LIBRARY_PATH} REQUIRED)
+find_library(CAIRO_LIBRARY NAMES ${CAIRO_LIB_A} PATHS ${LIBRARY_PATH} REQUIRED)
+find_library(CRYPTO_LIBRARY NAMES ${CRYPTO_LIB_A} PATHS ${LIBRARY_PATH} REQUIRED)
+find_library(GIO_LIBRARY NAMES ${GIO_LIB_A} PATHS ${LIBRARY_PATH} REQUIRED)
+find_library(GLIB_LIBRARY NAMES ${GLIB_LIB_A} PATHS ${LIBRARY_PATH} REQUIRED)
+find_library(GOBJECT_LIBRARY NAMES ${GOBJECT_LIB_A} PATHS ${LIBRARY_PATH} REQUIRED)
+find_library(GTK_LIBRARY NAMES ${GTK_LIB_A} PATHS ${LIBRARY_PATH} REQUIRED)
+find_library(XLSXWRITER_LIBRARY NAMES ${XLSXWRITER_LIB_A} PATHS ${LIBRARY_PATH} REQUIRED)
 
 target_link_libraries(${PROJECT_NAME} PRIVATE ${CAIRO_LIBRARY} ${CRYPTO_LIBRARY} ${GIO_LIBRARY} ${GLIB_LIBRARY} ${GOBJECT_LIBRARY} ${GTK_LIBRARY} ${XLSXWRITER_LIBRARY})
 
-add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-	COMMAND ${CMAKE_COMMAND} -E copy_if_different
-		${CAIRO_LIBRARY}
-		${CRYPTO_LIBRARY}
-		${GIO_LIBRARY}
-		${GLIB_LIBRARY}
-		${GOBJECT_LIBRARY}
-		${GTK_LIBRARY}
-		${XLSXWRITER_LIBRARY}
-		$<TARGET_FILE_DIR:${PROJECT_NAME}>)
+foreach(LIB ${PIM_LIBS})
+	execute_process(
+		COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/lib/${LIB} ${CMAKE_BINARY_DIR}/
+	)
+endforeach()
 
 include_directories(${GTK4_INCLUDE_DIRS})
 link_directories(${GTK4_LIBRARY_DIRS})
